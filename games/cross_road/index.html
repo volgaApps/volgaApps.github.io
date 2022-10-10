@@ -7,46 +7,24 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="styles.css" rel="stylesheet" type="text/css">
-    <!-- Yandex Games SDK -->
-    <script src="https://yandex.ru/games/sdk/v2"></script>
-    <script>
-                    YaGames
-                        .init({
-						screen: {
-                            fullscreen: false,
-                            orientation: {
-                            value: 'portrait',
-							    }
-							},
-						adv: {
-                            onAdvClose: wasShown => {
-                            console.info('adv closed!');
-                                }
-                            }
-						})
-						.then(ysdk => {
-                                                 sdk = ysdk;
-                           ysdk.adv.showFullscreenAdv();
-        });
-			  </script>
 
     <script>
        function showYndxAd() {
-              console.log("start showYndxAd function, version = 1");
-              sdk.adv.showFullscreenAdv({callbacks:{}});
+              //console.log("start showYndxAd function, version = 1");
+              //sdk.adv.showFullscreenAdv({callbacks:{}});
        }
 </script>
 
     <script>
        function getYndxPayload() {
-              console.log("start getYndxPayload");
-              if (typeof(sdk)=="undefined")
-                     return "undefined";
-              else return ""+sdk.environment.payload;
+              <!-- console.log("start getYndxPayload"); -->
+              <!-- if (typeof(sdk)=="undefined") -->
+                     <!-- return "undefined"; -->
+              <!-- else return ""+sdk.environment.payload; -->
        }
 
        function setYndxPayloadEmpty() {
-              sdk.environment.payload = "undefined";
+              <!-- sdk.environment.payload = "undefined"; -->
        }
 </script>
 </head>
