@@ -3,14 +3,14 @@ d:fonts:fonts:0:application/unknown:1
 t:fonts/pt_mono.fnt:fonts/pt_mono-8314b72cff1a0c5690581b8fa430e72e.fnt:18625:application/unknown:1
 t:fonts/pt_mono_16s.fnt:fonts/pt_mono_16s-c2502abb7db6a0729f9d8ba51eda6d7f.fnt:18629:application/unknown:1
 d:images:images:0:application/unknown:1
-t:images/crossroad-loading.json:images/crossroad-loading-855b4653accc369f8763333f56699ff5.json:959:application/unknown:1
+t:images/crossroad-loading.json:images/crossroad-loading-855b4653accc369f8763333f56699ff5.json:959:application/json:1
 t:images/crossroad-loading.pack.atlas:images/crossroad-loading.pack-467986374383e6f888acb3cd8847ed25.atlas:318:application/unknown:1
 i:images/crossroad-loading.pack.png:images/crossroad-loading.pack-1cb1fa3cbaf27e6261d3fef77e19cb36.png:43168:image/png:1
 t:images/crossroad.pack.atlas:images/crossroad.pack-e1c11ae2fa91f9bba7aa33b2db9a06a4.atlas:14463:application/unknown:1
 i:images/crossroad.pack.png:images/crossroad.pack-68ad61e31f13730df3ff62928d991233.png:568248:image/png:1
 d:images_ui:images_ui:0:application/unknown:1
-t:images_ui/crossroad-game-ui.json:images_ui/crossroad-game-ui-ffa8b6be103a3644a5d598f0c96a144f.json:3073:application/unknown:1
-t:images_ui/crossroad-ui.json:images_ui/crossroad-ui-3a56bd785b693d457cfafa05b83df439.json:2649:application/unknown:1
+t:images_ui/crossroad-game-ui.json:images_ui/crossroad-game-ui-ffa8b6be103a3644a5d598f0c96a144f.json:3073:application/json:1
+t:images_ui/crossroad-ui.json:images_ui/crossroad-ui-3a56bd785b693d457cfafa05b83df439.json:2649:application/json:1
 t:images_ui/crossroad-ui.pack.atlas:images_ui/crossroad-ui.pack-1f2dd66a556769856bd0d2291bfcd2bb.atlas:2526:application/unknown:1
 i:images_ui/crossroad-ui.pack.png:images_ui/crossroad-ui.pack-4644faf7295803b16e0534aad0ed0f38.png:272636:image/png:1
 d:maps:maps:0:application/unknown:1
