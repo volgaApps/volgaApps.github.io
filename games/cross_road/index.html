@@ -11,6 +11,15 @@
 	<!-- библиотека VK -->
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	<script>vkBridge.send("VKWebAppInit", {});</script>
+	<script>
+	var historyObj = windows.history;
+	</script>
+	
+	<script>
+	if (history.back) {
+	console.log("back btn pressed")
+	}
+	</script>
 
     <script>
        function showYndxAd() {
