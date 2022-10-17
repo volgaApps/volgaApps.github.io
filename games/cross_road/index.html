@@ -11,6 +11,20 @@
 	<!-- библиотека VK -->
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	<script>vkBridge.send("VKWebAppInit", {});</script>
+	
+	<script>
+	const onBackButtonEvent = (e) => {
+
+e.preventDefault();var currentLocation = window.location.pathname;
+
+history.push(`${currentLocation}/mypage/new`)};
+
+useEffect(() => {window.addEventListener(‘popstate’, onBackButtonEvent);return () => {window.removeEventListener(‘popstate’, onBackButtonEvent);
+
+};}, [])
+
+window.addEventListener(‘popstate’, onBackButtonEvent);
+	</script>
 
     <script>
        function showYndxAd() {
