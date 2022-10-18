@@ -13,7 +13,7 @@
 	<script>vkBridge.send("VKWebAppInit", {});</script>
 	
 	<script>
-	window.addEventListener("backbutton", backKeyDown, true); 
+	document.addEventListener("backbutton", backKeyDown, true); 
 function backKeyDown() { 
      // Call my back key code here.
     alert('go back!');
@@ -29,20 +29,25 @@ function backKeyDown() {
 
     <script>
        function getYndxPayload() {
-              <!-- console.log("start getYndxPayload"); -->
-              <!-- if (typeof(sdk)=="undefined") -->
-                     <!-- return "undefined"; -->
-              <!-- else return ""+sdk.environment.payload; -->
+              // <!-- console.log("start getYndxPayload"); -->
+              // <!-- if (typeof(sdk)=="undefined") -->
+              //        <!-- return "undefined"; -->
+              // <!-- else return ""+sdk.environment.payload; -->
        }
 
        function setYndxPayloadEmpty() {
-              <!-- sdk.environment.payload = "undefined"; -->
+              // <!-- sdk.environment.payload = "undefined"; -->
        }
 </script>
     <script>
         function appLaunchFromVK() {
         return true;
         }
+    </script>
+
+    <script>
+       var app = new App;
+       app.componentDidMount();
     </script>
 </head>
 
