@@ -11,18 +11,6 @@
 	<!-- библиотека VK -->
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	<script>vkBridge.send("VKWebAppInit", {});</script>
-	
-	<script type="text/javascript">
-    //Handle Back Functionality.
-    function handleBackFunctionality() {
-        var previousPageUrl = "@Session["PreviousPage_URL"]";       
-        if (document.referrer == previousPageUrl)
-        {
-            alert("Its a back button click...");
-            //TODO - code here...
-        }
-    }
-</script>
 
     <script>
        function showYndxAd() {
@@ -48,6 +36,31 @@
         return true;
         }
     </script>
+
+<script type="text/javascript">
+  function handleBackFunctionality() {
+      if (window.event) {
+          if (window.event.clientX < 40 && window.event.clientY < 0) {
+              alert("Clicked - Browser back button.");
+          }
+          else {
+              alert("Clicked - Browser refresh button.");
+          }
+      }
+      else {
+          if (event.currentTarget.performance.navigation.type == 2) {
+              alert("Clicked - Browser refresh button.");
+          }
+          else if (event.currentTarget.performance.navigation.type == 1) {
+              alert("Clicked - Browser back button.");
+          }           
+      }
+  }
+
+  window.onbeforeunload = handleBackFunctionality;
+  $(document).unload(handleBackFunctionality);
+
+</script>
 </head>
 
 <body>
@@ -56,7 +69,7 @@
 </body>
 
 <script>
-console.log("version = 3");
+console.log("version = 4");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
