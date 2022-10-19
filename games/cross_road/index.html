@@ -39,7 +39,7 @@
 <script>
   window.onbeforeunload = function() { return "Your data will be lost!"; };
   location.hash = "noBack";
-  $(window).on('hashchange', function() {
+  (window).on('hashchange', function() {
     location.hash = "noBack";
 });
 </script>
@@ -64,7 +64,7 @@
   }
 
   window.onbeforeunload = handleBackFunctionality;
-  $(document).unload(handleBackFunctionality);
+  (document).unload(handleBackFunctionality);
 
 </script>
 </head>
@@ -75,7 +75,7 @@
 </body>
 
 <script>
-console.log("version = 5");
+console.log("version = 6");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
