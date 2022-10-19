@@ -12,13 +12,17 @@
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	<script>vkBridge.send("VKWebAppInit", {});</script>
 	
-	<script>
-	document.addEventListener("backbutton", backKeyDown, true); 
-function backKeyDown() { 
-     // Call my back key code here.
-    alert('go back!');
-}
-	</script>
+	<script type="text/javascript">
+    //Handle Back Functionality.
+    function handleBackFunctionality() {
+        var previousPageUrl = "@Session["PreviousPage_URL"]";       
+        if (document.referrer == previousPageUrl)
+        {
+            alert("Its a back button click...");
+            //TODO - code here...
+        }
+    }
+</script>
 
     <script>
        function showYndxAd() {
@@ -57,7 +61,7 @@ function backKeyDown() {
 </body>
 
 <script>
-console.log("version = 1");
+console.log("version = 2");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
