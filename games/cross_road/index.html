@@ -61,7 +61,7 @@
 </body>
 
 <script>
-console.log("version = 2");
+console.log("version = 3");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
@@ -74,22 +74,5 @@ console.log("version = 2");
               }
               document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
               document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
-       </script>
-
-       <script>
-              import {Component} from 'react';
-import {withRouter} from 'react-router';
-class App extends Component {
-  componentDidMount() {
-    this.props.router.setRouteLeaveHook(this.props.route, this.onLeave);
-  }
-  onLeave(nextState) {
-    if (nextState.action === 'POP') {
-      //...
-    }
-  }
-  //...
-}
-export default withRouter(App);
        </script>
 </html>
