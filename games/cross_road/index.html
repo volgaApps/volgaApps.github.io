@@ -39,9 +39,12 @@
         }
     </script>
     
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
       //History APIs.
       if( window.history && window.history.pushState ){
+
+        console.log("window.location.hash.toString = " + window.location.hash.toString);
+
           history.pushState( "nohb", null, "" );
           console.log("method 1");
   
@@ -55,9 +58,9 @@
               }
           });
       }
-      </script> -->
+      </script>
 
-      <script>
+      <!-- <script>
         var hash = window.location.hash;
         setInterval(function(){
           if (window.location.hash != hash) {
@@ -65,7 +68,7 @@
             alert("User went back or forward to application state represented by " + hash);
           }
         }, 100);
-      </script>
+      </script> -->
 </head>
 
 <body>
@@ -74,7 +77,7 @@
 </body>
 
 <script>
-console.log("version = 19");
+console.log("version = 20");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
