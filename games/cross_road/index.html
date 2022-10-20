@@ -42,21 +42,17 @@
     <script type="text/javascript">
       //History APIs.
       if( window.history && window.history.pushState ){
-
-        console.log("window.location.hash.toString = " + window.location.hash);
-
           history.pushState( "nohb", null, "" );
           console.log("method 1");
-  
          
-          $(window).on( "popstate", function(event){
-            console.log("method 2");
-              if( !event.originalEvent.state ){
-              history.pushState( "nohb", null, "" );
-              console.log("method 3")
-              return;
-              }
-          });
+          // $(window).on( "popstate", function(event){
+          //   console.log("method 2");
+          //     if( !event.originalEvent.state ){
+          //     history.pushState( "nohb", null, "" );
+          //     console.log("method 3")
+          //     return;
+          //     }
+          // });
       }
       </script>
 
