@@ -57,7 +57,14 @@
       }
       </script> -->
 
-<script type="text/javascript">
+      <script type="text/javascript">
+        $(window).bind('hashchange', function() {
+            top.location = '#main';
+            // Eventually alert the user describing what happened.
+        });
+    </script>
+
+<!-- <script type="text/javascript">
   var hashChangedCount = -2;
 
   $(window).on("hashchange", function () {
@@ -69,7 +76,7 @@
       top.location.hash = '#main';
   });
   top.location.hash = "#";
-</script>
+</script> -->
 
       <!-- <script>
         var hash = window.location.hash;
@@ -88,7 +95,7 @@ setInterval(function(){
 </body>
 
 <script>
-console.log("version = 17");
+console.log("version = 18");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
