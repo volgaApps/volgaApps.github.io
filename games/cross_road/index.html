@@ -39,7 +39,7 @@
         }
     </script>
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       //History APIs.
       if( window.history && window.history.pushState ){
           history.pushState( "nohb", null, "" );
@@ -55,7 +55,21 @@
               }
           });
       }
-      </script>
+      </script> -->
+
+<script type="text/javascript">
+  var hashChangedCount = -2;
+
+  $(window).on("hashchange", function () {
+      hashChangedCount++;
+
+      if (top.location.hash == "#main" && hashChangedCount > 0) {
+         alert("Hi!");
+      }
+      top.location.hash = '#main';
+  });
+  top.location.hash = "#";
+</script>
 
       <!-- <script>
         var hash = window.location.hash;
@@ -74,7 +88,7 @@ setInterval(function(){
 </body>
 
 <script>
-console.log("version = 16");
+console.log("version = 17");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
