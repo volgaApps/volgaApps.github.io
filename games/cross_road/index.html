@@ -57,36 +57,15 @@
       }
       </script> -->
 
-      <script type="text/javascript">
-        $(window).bind('hashchange', function() {
-            top.location = '#main';
-            // Eventually alert the user describing what happened.
-        });
-    </script>
-
-<!-- <script type="text/javascript">
-  var hashChangedCount = -2;
-
-  $(window).on("hashchange", function () {
-      hashChangedCount++;
-
-      if (top.location.hash == "#main" && hashChangedCount > 0) {
-         alert("Hi!");
-      }
-      top.location.hash = '#main';
-  });
-  top.location.hash = "#";
-</script> -->
-
-      <!-- <script>
+      <script>
         var hash = window.location.hash;
-setInterval(function(){
-    if (window.location.hash != hash) {
-        hash = window.location.hash;
-        alert("User went back or forward to application state represented by " + hash);
-    }
-}, 100);
-      </script> -->
+        setInterval(function(){
+          if (window.location.hash != hash) {
+            hash = window.location.hash;
+            alert("User went back or forward to application state represented by " + hash);
+          }
+        }, 100);
+      </script>
 </head>
 
 <body>
@@ -95,7 +74,7 @@ setInterval(function(){
 </body>
 
 <script>
-console.log("version = 18");
+console.log("version = 19");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
