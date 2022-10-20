@@ -20,7 +20,7 @@
        }
 </script>
 
-    <script>
+<script>
        function getYndxPayload() {
               // <!-- console.log("start getYndxPayload"); -->
               // <!-- if (typeof(sdk)=="undefined") -->
@@ -32,20 +32,14 @@
               // <!-- sdk.environment.payload = "undefined"; -->
        }
 </script>
+
     <script>
         function appLaunchFromVK() {
         return true;
         }
     </script>
-
-<!-- <script type="text/javascript">
-  $(window).bind('hashchange', function() {
-      top.location = '#main';
-      // Eventually alert the user describing what happened.
-  });
-</script> -->
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       //History APIs.
       if( window.history && window.history.pushState ){
           history.pushState( "nohb", null, "" );
@@ -61,7 +55,17 @@
               }
           });
       }
-  </script>
+      </script> -->
+
+      <script>
+        var hash = window.location.hash;
+setInterval(function(){
+    if (window.location.hash != hash) {
+        hash = window.location.hash;
+        alert("User went back or forward to application state represented by " + hash);
+    }
+}, 100);
+      </script>
 </head>
 
 <body>
@@ -70,7 +74,7 @@
 </body>
 
 <script>
-console.log("version = 14");
+console.log("version = 15");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
