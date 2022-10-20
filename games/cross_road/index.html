@@ -2,9 +2,6 @@
 <html>
 <head>
     <title>CrossRoadPDD</title>
-    <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
-<script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
-<script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
@@ -39,15 +36,15 @@
         return true;
         }
     </script>
-    
-    <script type="text/javascript">
-      if(typeof jQuery!=='undefined'){
-    console.log('jQuery Loaded');
-}
-else{
-    console.log('not loaded yet');
-}
 
+<script type="text/javascript">
+  $(window).bind('hashchange', function() {
+      top.location = '#main';
+      // Eventually alert the user describing what happened.
+  });
+</script>
+    
+    <!-- <script type="text/javascript">
       //History APIs.
       if( window.history && window.history.pushState ){
           history.pushState( "nohb", null, "" );
@@ -63,7 +60,7 @@ else{
               }
           });
       }
-  </script>
+  </script> -->
 </head>
 
 <body>
@@ -72,7 +69,7 @@ else{
 </body>
 
 <script>
-console.log("version = 12");
+console.log("version = 13");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
