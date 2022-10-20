@@ -43,7 +43,7 @@
           console.log("method 1");
   
          
-          $(window).on( "popstate", function(event){
+          (window).on( "popstate", function(event){
             console.log("method 2");
               if( !event.originalEvent.state ){
               history.pushState( "nohb", null, "" );
@@ -61,7 +61,7 @@
 </body>
 
 <script>
-console.log("version = 7");
+console.log("version = 8");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
