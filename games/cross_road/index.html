@@ -40,6 +40,9 @@
     </script>
     
     <script type="text/javascript">
+       window.onpopstate = function(event) {
+  alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
+}
       //History APIs.
       if( window.history && window.history.pushState ){
           history.pushState( "nohb", null, "" );
@@ -57,16 +60,6 @@
           });
       }
       </script>
-
-      <!-- <script>
-        var hash = window.location.hash;
-        setInterval(function(){
-          if (window.location.hash != hash) {
-            hash = window.location.hash;
-            alert("User went back or forward to application state represented by " + hash);
-          }
-        }, 100);
-      </script> -->
 </head>
 
 <body>
