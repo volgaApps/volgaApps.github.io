@@ -8,10 +8,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link href="styles.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	
-	<!-- библиотека VK -->
-	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-	<script>vkBridge.send("VKWebAppInit", {});</script>
+
+    <!-- библиотека VK -->
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script>vkBridge.send("VKWebAppInit", {});</script>
 
     <script>
        function showYndxAd() {
@@ -20,7 +20,7 @@
        }
 </script>
 
-<script>
+    <script>
        function getYndxPayload() {
               // <!-- console.log("start getYndxPayload"); -->
               // <!-- if (typeof(sdk)=="undefined") -->
@@ -38,28 +38,56 @@
         return true;
         }
     </script>
-    
+
     <script type="text/javascript">
-       window.onpopstate = function(event) {
-  alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
-}
+       // window.onpopstate = function(event) {
+//   alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
+// if (window.confirm("Do you really want to leave?")) {
+//   window.open("exit.html", "Thanks for Visiting!");
+// } else {
+//        console.log("Cancel")
+// }
+// }
       //History APIs.
-      if( window.history && window.history.pushState ){
-          history.pushState( "nohb", null, "" );
-          console.log("method 1");
-         
-          $(window).on( "popstate", function(event){
-            console.log("method 2");
-              if( !event.originalEvent.state ){
-              history.pushState( "nohb", null, "" );
-              console.log("method 3")
-              var numberOfEntries = window.history.length;
-              console.log("window.history.lenght = " + numberOfEntries);
-              return;
-              }
-          });
-      }
+//       if( window.history && window.history.pushState ){
+//           history.pushState( "nohb", null, "" );
+//           console.log("method 1");
+
+//           $(window).on( "popstate", function(event){
+//             console.log("method 2");
+//               if( !event.originalEvent.state ){
+//               history.pushState( "nohb", null, "" );
+//               console.log("method 3")
+//               var numberOfEntries = window.history.length;
+//               console.log("window.history.lenght = " + numberOfEntries);
+//               return;
+//               }
+//           });
+//       }
       </script>
+
+<script language="javascript" type="text/javascript">
+       window.onload = function() {
+var btnRelease = document.getElementById('<%= btnRelease.ClientID %>');
+               
+//Find the button set null value to click event and alert will not appear for that specific button
+
+               function setGlobal() {
+                   window.onbeforeunload = null;
+               }
+               $(btnRelease).click(setGlobal);
+
+// Alert will not appear for all links on the page
+               $('a').click(function() {
+                   window.onbeforeunload = null;
+
+               });
+               window.onbeforeunload = function() {
+                       return 'Are you sure you want to leave this page?';
+               };
+          
+       };
+</script>
 </head>
 
 <body>
