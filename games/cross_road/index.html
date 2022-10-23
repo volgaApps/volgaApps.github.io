@@ -60,8 +60,14 @@
               console.log("method 3")
               var numberOfEntries = window.history.length;
               console.log("window.history.lenght = " + numberOfEntries);
-              return;
-              }
+
+              if (window.confirm("Do you really want to leave?")) {
+                window.open("vk.com/feed", "Thanks for Visiting!");
+            } else {
+                console.log("Cancel")
+            }
+            return;
+        }
           });
       }
       </script>
