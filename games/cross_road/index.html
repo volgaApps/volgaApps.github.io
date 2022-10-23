@@ -55,19 +55,20 @@
 
           $(window).on( "popstate", function(event){
             console.log("method 2");
-              if( !event.originalEvent.state ){
-              history.pushState( "nohb", null, "" );
-              console.log("method 3")
-              var numberOfEntries = window.history.length;
-              console.log("window.history.lenght = " + numberOfEntries);
 
-              if (window.confirm("Do you really want to leave?")) {
-                window.open("vk.com/feed", "Thanks for Visiting!");
+            if (window.confirm("Do you really want to leave?")) {
+                window.open("index.html", "Thanks for Visiting!");
             } else {
                 console.log("Cancel")
             }
-            return;
-        }
+
+        //       if( !event.originalEvent.state ){
+        //       history.pushState( "nohb", null, "" );
+        //       console.log("method 3")
+        //       var numberOfEntries = window.history.length;
+        //       console.log("window.history.lenght = " + numberOfEntries);
+        //     return;
+        // }
           });
       }
       </script>
