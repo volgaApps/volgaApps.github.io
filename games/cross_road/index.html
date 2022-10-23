@@ -49,21 +49,21 @@
 // }
 }
       //History APIs.
-//       if( window.history && window.history.pushState ){
-//           history.pushState( "nohb", null, "" );
-//           console.log("method 1");
+      if( window.history && window.history.pushState ){
+          history.pushState( "nohb", null, "" );
+          console.log("method 1");
 
-//           $(window).on( "popstate", function(event){
-//             console.log("method 2");
-//               if( !event.originalEvent.state ){
-//               history.pushState( "nohb", null, "" );
-//               console.log("method 3")
-//               var numberOfEntries = window.history.length;
-//               console.log("window.history.lenght = " + numberOfEntries);
-//               return;
-//               }
-//           });
-//       }
+          $(window).on( "popstate", function(event){
+            console.log("method 2");
+              if( !event.originalEvent.state ){
+              history.pushState( "nohb", null, "" );
+              console.log("method 3")
+              var numberOfEntries = window.history.length;
+              console.log("window.history.lenght = " + numberOfEntries);
+              return;
+              }
+          });
+      }
       </script>
 
 <!-- // окно с уведомлением в браузере работает, в приложении нет -->
