@@ -40,15 +40,15 @@
     </script>
 
     <script type="text/javascript">
-       window.onpopstate = function(event) {
-  alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
+//        window.onpopstate = function(event) {
+//   alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
 // if (window.confirm("Do you really want to leave?")) {
 //   window.open("exit.html", "Thanks for Visiting!");
 // } else {
 //        console.log("Cancel")
 // }
-}
-      //History APIs.
+// }
+//       History APIs.
       if( window.history && window.history.pushState ){
           history.pushState( "nohb", null, "" );
           console.log("method 1");
