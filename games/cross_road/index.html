@@ -55,9 +55,8 @@
 
           $(window).on( "popstate", function(event){
             console.log("method 2");
-              if( !event.originalEvent.state ){
 
-                if (window.confirm("Do you really want to leave?")) {
+            if (window.confirm("Do you really want to leave?")) {
                 // history.replaceState("", "", "https://vk.com/app51449034_17162067")
                 // window.open("index.html", "Thanks for Visiting!");
                 history.back();
@@ -65,12 +64,13 @@
                 console.log("Cancel")
             }
 
-            //   history.pushState( "nohb", null, "" );
-              console.log("method 3")
-              var numberOfEntries = window.history.length;
-              console.log("window.history.lenght = " + numberOfEntries);
-            return;
-        }
+        //       if( !event.originalEvent.state ){
+        //       history.pushState( "nohb", null, "" );
+        //       console.log("method 3")
+        //       var numberOfEntries = window.history.length;
+        //       console.log("window.history.lenght = " + numberOfEntries);
+        //     return;
+        // }
           });
       }
       </script>
