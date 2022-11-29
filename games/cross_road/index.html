@@ -39,65 +39,11 @@
         }
     </script>
 
-    <script type="text/javascript">
-//        window.onpopstate = function(event) {
-//   alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
-// if (window.confirm("Do you really want to leave?")) {
-//   window.open("exit.html", "Thanks for Visiting!");
-// } else {
-//        console.log("Cancel")
-// }
-// }
-//       History APIs.
-      if( window.history && window.history.pushState ){
-          history.pushState( "nohb", null, "" );
-          console.log("method 1");
+    <script>
+      function buildSettingsDialogVK() {
 
-          $(window).on( "popstate", function(event){
-            console.log("method 2");
-
-            if (window.confirm("Do you really want to leave?")) {
-                // history.replaceState("", "", "https://vk.com/app51449034_17162067")
-                // window.open("index.html", "Thanks for Visiting!");
-                history.back();
-            } else {
-                console.log("Cancel")
-            }
-
-        //       if( !event.originalEvent.state ){
-        //       history.pushState( "nohb", null, "" );
-        //       console.log("method 3")
-        //       var numberOfEntries = window.history.length;
-        //       console.log("window.history.lenght = " + numberOfEntries);
-        //     return;
-        // }
-          });
       }
-      </script>
-
-<!-- // окно с уведомлением в браузере работает, в приложении нет -->
-<!-- <script language="javascript" type="text/javascript">
-       window.onload = function() {
-var btnRelease = document.getElementById('<%= btnRelease.ClientID %>');
-               
-//Find the button set null value to click event and alert will not appear for that specific button
-
-               function setGlobal() {
-                   window.onbeforeunload = null;
-               }
-               $(btnRelease).click(setGlobal);
-
-// Alert will not appear for all links on the page
-               $('a').click(function() {
-                   window.onbeforeunload = null;
-
-               });
-               window.onbeforeunload = function() {
-                       return 'Are you sure you want to leave this page?';
-               };
-          
-       };
-</script> -->
+    </script>
 </head>
 
 <body>
@@ -106,7 +52,6 @@ var btnRelease = document.getElementById('<%= btnRelease.ClientID %>');
 </body>
 
 <script>
-console.log("version = 21");
               function handleMouseDown(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
