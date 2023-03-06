@@ -118,6 +118,7 @@ var isPlayMusicTheme = false;
         try {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
             context = new AudioContext();
+            console.log('context.state on init = ' + context.state);
         } catch (e) {
             alert('Web Audio API is not supported in this browser');
         }
@@ -163,6 +164,8 @@ var isPlayMusicTheme = false;
           }
 
           function playClickSound() {
+            alert('context.state on playClickSound() = ' + context.state);
+            console.log('context.state on playClickSound() = ' + context.state);
               isPlayMusicTheme = true;
               clickSound = context.createBufferSource();
               clickSound.loop = false;
