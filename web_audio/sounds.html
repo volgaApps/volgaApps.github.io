@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Web Audio API - iPad Test</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<h1>Web Audio API Test</h1>
+
+<script>
+
+    var el = document;
+    document.addEventListener("touchstart", handleStart);
+    document.addEventListener('click', clickHandler);
+    // el.addEventListener("touchend", handleEnd, false);
+    // el.addEventListener("touchcancel", handleCancel, false);
+    // el.addEventListener("touchmove", handleMove, false);
+
+
+  function handleStart() {
+    console.log('handleStart');
+    }
+
+    function clickHandler() {
+        console.log("Click!");
+    }
+</script>
+</body>
+
+</html>
