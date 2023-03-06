@@ -104,28 +104,19 @@ function showStickyBannerYndx() {
     </script>
 
 <script>
-
 window.onload = init;
 var context;
 var bufferLoader;
 var bufList;
-var rand;
 var gainNode;
 var isPlayMusicTheme = false;
     
     function init() {
-        // Fix up prefixing
-        try {
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            context = new AudioContext();
-        } catch (e) {
-            alert('Web Audio API is not supported in this browser');
-        }
+        context = new (window.AudioContext || window.webkitAudioContext)();
         
         bufList = new Array();
         gainNode = context.createGain();
-        gainNode.gain.value = 0.1;
-
+        gainNode.gain.value = 1.0;
 
         bufferLoader = new BufferLoader(
             context,
