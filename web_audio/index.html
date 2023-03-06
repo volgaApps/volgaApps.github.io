@@ -112,7 +112,7 @@ var gainNode;
 var isPlayMusicTheme = false;
     
     function init() {
-        alert('index.html vesion 1');
+        alert('index.html vesion 2');
 
         context = new (window.AudioContext || window.webkitAudioContext)();
         
@@ -156,12 +156,11 @@ var isPlayMusicTheme = false;
           }
 
           function playClickSound() {
-              isPlayMusicTheme = true;
               clickSound = context.createBufferSource();
-              clickSound.loop = false;
               clickSound.buffer = bufList[0];
-              clickSound.connect(gainNode);
-              gainNode.connect(context.destination);
+              var clickNode = context.createGain();
+              clickSound.connect(clickNode);
+              clickNode.connect(context.destination);
               clickSound.start(context.currentTime);
           }
 
