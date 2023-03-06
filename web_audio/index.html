@@ -112,7 +112,7 @@ var gainNode;
 var isPlayMusicTheme = false;
     
     function init() {
-        alert('index.html vesion 2');
+        alert('index.html vesion 3');
 
         context = new (window.AudioContext || window.webkitAudioContext)();
         
@@ -161,7 +161,7 @@ var isPlayMusicTheme = false;
               var clickNode = context.createGain();
               clickSound.connect(clickNode);
               clickNode.connect(context.destination);
-              clickSound.start(context.currentTime);
+              clickSound.start(0);
           }
 
           function playAlarmSound() {
