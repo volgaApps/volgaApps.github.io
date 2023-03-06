@@ -69,7 +69,7 @@ function showStickyBannerYndx() {
 
     <script>
     function hideStickyBannerYndx() {
-    console.log("hideStickyBannerYndx() in hide");
+    // console.log("hideStickyBannerYndx() in hide");
     sdk.adv.hideBannerAdv();
     }
 </script>
@@ -112,8 +112,8 @@ var gainNode;
 var isPlayMusicTheme = false;
     
     function init() {
-        console.log('index.html vesion 0');
-        
+        console.log('index.html vesion 1');
+
         context = new (window.AudioContext || window.webkitAudioContext)();
         
         bufList = new Array();
@@ -162,7 +162,7 @@ var isPlayMusicTheme = false;
               clickSound.buffer = bufList[0];
               clickSound.connect(gainNode);
               gainNode.connect(context.destination);
-              clickSound.start(0);
+              clickSound.start(context.currentTime);
           }
 
           function playAlarmSound() {
@@ -234,7 +234,7 @@ var isPlayMusicTheme = false;
               try {
                   clickSound.stop(context.currentTime);
               } catch (error) {
-                  console.log('ERROR', 'stop music exception = ' + error)
+                //   console.log('ERROR', 'stop music exception = ' + error)
               }
           }
 
