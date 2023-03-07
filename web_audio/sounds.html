@@ -111,6 +111,7 @@ function handleMouseDown(evt) {
       };
 
       request.send();
+      return source;
     }
 
     // wire up buttons to stop and play audio, and range slider control
@@ -125,7 +126,7 @@ function handleMouseDown(evt) {
     }
 
     function playSound(source, soundsName) {
-        getDatas(source, soundsName);
+        source = getDatas(source, soundsName);
         source.start(0);
     }
 
