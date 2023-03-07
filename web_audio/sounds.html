@@ -48,6 +48,8 @@ function handleMouseDown(evt) {
   var audio_ctx = new webkitAudioContext();
 }
    
+var sounds = {};
+
 function loadMusic(url, cb) {
   var req = new XMLHttpRequest();
   req.open('GET', url, true);
@@ -59,8 +61,6 @@ function loadMusic(url, cb) {
   };
  
   req.send();
-
-var sounds = {};
  
 var audio = {
     click: 'sounds/click.ogg',
