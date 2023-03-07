@@ -61,13 +61,23 @@
                             //    console.log('playMusicTheme()');
                                isPlayMusicTheme = true;
                                source1 = context.createBufferSource();
-                               source1.loop = true;
+                            //    source1.loop = true;
 
                                source1.buffer = bufList[0];
                                // Connect source to a gain node
                                source1.connect(gainNode);
                                gainNode.connect(context.destination);
                                source1.start(0);
+                           }
+
+                           var source2;
+
+                           function playSource2() {
+                            source2 = context.createBufferSource();
+                            source2.buffer = bufList[1];
+                            source1.connect(gainNode);
+                            gainNode.connect(context.destination);
+                            source2.start(0);
                            }
 
                            function pauseMusicTheme() {
@@ -154,11 +164,19 @@
                 
               }
 
+              var n = 0;
               function handleMouseUp(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
                 console.log('handleMouseUp');
-                playMusicTheme();
+
+                n++;
+                if (n / 2 == 0) {
+                    playMusicTheme();
+                } else {
+                    playSource2();
+                }
+                
               }
 
               var elem = document;
