@@ -44,12 +44,15 @@ function handleMouseDown(evt) {
 </script>
 
 <script>
-    if (typeof webkitAudioContext !== 'undefined') {
-  var audio_ctx = new webkitAudioContext();
-}
-   
-var sounds = {};
 
+window.onload = init;
+var sounds = {};
+var audio_ctx;
+
+function init() {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                         audio_ctx = new AudioContext();
+   
 function loadMusic(url, cb) {
   var req = new XMLHttpRequest();
   req.open('GET', url, true);
@@ -83,6 +86,7 @@ for (var name in audio) {
   loadAudioData(name, url);
 }
 }
+}
 
 function playSound (buffer, opt, cb) {
   if (!opt) cb = opt;
@@ -91,7 +95,7 @@ function playSound (buffer, opt, cb) {
   var src = audio_ctx.createBufferSource();
   src.buffer = buffer;
  
-  gain_node = audio_ctx.createGainNode();
+  gain_node = audio_ctx.createGain();
   src.connect(gain_node);
    
   gain_node.connect(audio_ctx.destination);
@@ -106,7 +110,7 @@ function playSound (buffer, opt, cb) {
   if (opt.loop)
     src.loop = true;
  
-  src.noteOn(0);
+  src.start(0);
  
   cb(src);
 }
