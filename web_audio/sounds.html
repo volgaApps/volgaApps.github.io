@@ -213,6 +213,8 @@
     // document.addEventListener('click', clickHandler);
     document.addEventListener('mousedown', mouseDownEv);
     document.addEventListener('mouseup', mouseUpEv);
+    document.addEventListener("touchstart", touchstartEv);
+    document.addEventListener("touchend", touchendEv);
     // el.addEventListener("touchend", handleEnd, false);
     // el.addEventListener("touchcancel", handleCancel, false);
     // el.addEventListener("touchmove", handleMove, false);
@@ -231,6 +233,19 @@
     function mouseUpEv() {
         upCount++;
         console.log('mouseup event ' + upCount);
+        playCarMovingSound();
+    }
+
+    function touchstartEv() {
+        console.log('touchstart');
+        console.log(context);
+        if (typeof context === 'undefined') {
+            init();
+        }
+    }
+
+    function touchendEv() {
+        console.log('touchend');
         playCarMovingSound();
     }
 </script>
