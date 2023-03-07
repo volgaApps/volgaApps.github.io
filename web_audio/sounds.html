@@ -188,7 +188,7 @@
               }
     
               request.onerror = function() {
-                  alert('BufferLoader: XHR error');
+                //   alert('BufferLoader: XHR error');
               }
     
               request.send();
@@ -224,9 +224,8 @@
         downCount++;
         console.log('mousedown event! ' + downCount);
         console.log(context);
-        if (typeof context === 'undefined') {
-            init();
-        }
+        console.log('context on mousedown = ' + context);
+        audioContextSettings();
     }
 
     var upCount = 0;
@@ -238,15 +237,29 @@
 
     function touchstartEv() {
         console.log('touchstart');
-        console.log(context);
-        if (typeof context === 'undefined') {
-            init();
-        }
+        console.log('context state on touchstart = ' + context);
+        audioContextSettings();
     }
 
     function touchendEv() {
         console.log('touchend');
         playCarMovingSound();
+    }
+
+    function audioContextSettings() {
+        if (typeof context === 'undefined') {
+            init();
+        }
+
+        if (context.state === 'suspended') {
+            context.resume();
+        }
+
+        if (context.state === 'running') {
+            console.log('context.state is running')
+        }
+
+        console.log('context.state on down event = ' + context.state);
     }
 </script>
 </body>
