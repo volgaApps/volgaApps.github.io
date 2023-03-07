@@ -36,7 +36,7 @@
             bufferLoader = new BufferLoader(
                 context,
                 [
-                    'back_loop.mp3',
+                    'click.mp3',
                     'alarm.ogg',
                     'bicycle.ogg',
                     'car_accident.ogg',
@@ -249,17 +249,14 @@
     function audioContextSettings() {
         if (typeof context === 'undefined') {
             init();
-            playClickSound();
         }
 
         if (context.state === 'suspended') {
             context.resume();
-            playClickSound();
         }
 
         if (context.state === 'running') {
             console.log('context.state is running')
-            playClickSound();
         }
 
         console.log('context.state on down event = ' + context.state);
