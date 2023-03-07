@@ -8,8 +8,70 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+</head>
+
+<body>
+<h1>Web Audio API Test</h1>
+
 <script>
-    // window.onload = init;
+
+    var el = document;
+    // document.addEventListener("touchstart", handleStart);
+    // document.addEventListener('click', clickHandler);
+    document.addEventListener('mousedown', mouseDownEv);
+    document.addEventListener('mouseup', mouseUpEv);
+    document.addEventListener("touchstart", touchstartEv);
+    document.addEventListener("touchend", touchendEv);
+    // el.addEventListener("touchend", handleEnd, false);
+    // el.addEventListener("touchcancel", handleCancel, false);
+    // el.addEventListener("touchmove", handleMove, false);
+
+    var downCount = 0;
+    function mouseDownEv() {
+        downCount++;
+        console.log('mousedown event! ' + downCount);
+        console.log(context);
+        console.log('context on mousedown = ' + context);
+        audioContextSettings();
+    }
+
+    var upCount = 0;
+    function mouseUpEv() {
+        upCount++;
+        console.log('mouseup event ' + upCount);
+        playClickSound();
+    }
+
+    function touchstartEv() {
+        console.log('touchstart');
+        console.log('context state on touchstart = ' + context);
+        audioContextSettings();
+    }
+
+    function touchendEv() {
+        console.log('touchend');
+        playClickSound();
+    }
+
+    function audioContextSettings() {
+        if (typeof context === 'undefined') {
+            init();
+        }
+
+        if (context.state === 'suspended') {
+            context.resume();
+        }
+
+        if (context.state === 'running') {
+            console.log('context.state is running')
+        }
+
+        console.log('context.state on down event = ' + context.state);
+    }
+</script>
+
+<script>
+    window.onload = init;
     var context;
     var bufferLoader;
     var bufList;
@@ -200,68 +262,6 @@
               this.loadBuffer(this.urlList[i], i);
               }
     </script>
-
-</head>
-
-<body>
-<h1>Web Audio API Test</h1>
-
-<script>
-
-    var el = document;
-    // document.addEventListener("touchstart", handleStart);
-    // document.addEventListener('click', clickHandler);
-    document.addEventListener('mousedown', mouseDownEv);
-    document.addEventListener('mouseup', mouseUpEv);
-    document.addEventListener("touchstart", touchstartEv);
-    document.addEventListener("touchend", touchendEv);
-    // el.addEventListener("touchend", handleEnd, false);
-    // el.addEventListener("touchcancel", handleCancel, false);
-    // el.addEventListener("touchmove", handleMove, false);
-
-    var downCount = 0;
-    function mouseDownEv() {
-        downCount++;
-        console.log('mousedown event! ' + downCount);
-        console.log(context);
-        console.log('context on mousedown = ' + context);
-        audioContextSettings();
-    }
-
-    var upCount = 0;
-    function mouseUpEv() {
-        upCount++;
-        console.log('mouseup event ' + upCount);
-        playClickSound();
-    }
-
-    function touchstartEv() {
-        console.log('touchstart');
-        console.log('context state on touchstart = ' + context);
-        audioContextSettings();
-    }
-
-    function touchendEv() {
-        console.log('touchend');
-        playClickSound();
-    }
-
-    function audioContextSettings() {
-        if (typeof context === 'undefined') {
-            init();
-        }
-
-        if (context.state === 'suspended') {
-            context.resume();
-        }
-
-        if (context.state === 'running') {
-            console.log('context.state is running')
-        }
-
-        console.log('context.state on down event = ' + context.state);
-    }
-</script>
 </body>
 
 </html>
