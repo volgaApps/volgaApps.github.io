@@ -18,9 +18,9 @@
 <br>
 <input type="button" onclick="stopSound1()" value="Stop music">
 <br><br><br>
-<input type="button" onclick="playSource1()" value="Play Source 1">
+<!-- <input type="button" onclick="playSource1()" value="Play Source 1">
 <input type="button" onclick="playSource2()" value="Play Source 2">
-<input type="button" onclick="playSource3()" value="Play Source 3">
+<input type="button" onclick="playSource3()" value="Play Source 3"> -->
 
 <script>
 function handleMouseDown(evt) {
@@ -86,31 +86,31 @@ function handleMouseDown(evt) {
       request.send();
     }
 
-    function getData(source, soundsName) {
-      source = new AudioBufferSourceNode(audioCtx);
-      request = new XMLHttpRequest();
+    // function getData(source, soundsName) {
+    //   source = new AudioBufferSourceNode(audioCtx);
+    //   request = new XMLHttpRequest();
 
-      request.open("GET", soundsName, true);
+    //   request.open("GET", soundsName, true);
 
-      request.responseType = "arraybuffer";
+    //   request.responseType = "arraybuffer";
 
-      request.onload = () => {
-        let audioData = request.response;
+    //   request.onload = () => {
+    //     let audioData = request.response;
 
-        audioCtx.decodeAudioData(
-          audioData,
-          (buffer) => {
-            source.buffer = buffer;
-            source.connect(audioCtx.destination);
-          },
-          (e) => {
-            `Error with decoding audio data ${e.error}`;
-          }
-        );
-      };
+    //     audioCtx.decodeAudioData(
+    //       audioData,
+    //       (buffer) => {
+    //         source.buffer = buffer;
+    //         source.connect(audioCtx.destination);
+    //       },
+    //       (e) => {
+    //         `Error with decoding audio data ${e.error}`;
+    //       }
+    //     );
+    //   };
 
-      request.send();
-    }
+    //   request.send();
+    // }
 
     // wire up buttons to stop and play audio, and range slider control
 
@@ -123,26 +123,26 @@ function handleMouseDown(evt) {
         sound.stop(0);
     }
 
-    function playSound(source, soundsName) {
-        getData(source, soundsName);
-        source.start(0);
-    }
+    // function playSound(source, soundsName) {
+    //     getData(source, soundsName);
+    //     source.start(0);
+    // }
 
-    function stopSound(source, soundsName) {
-        source.stop(0);
-    }
+    // function stopSound(source, soundsName) {
+    //     source.stop(0);
+    // }
 
-    function playSource1() {
-        playSound(source1, "click.ogg");
-    }
+    // function playSource1() {
+    //     playSound(source1, "click.ogg");
+    // }
 
-    function playSource2() {
-        playSound(source2, "car_moving.ogg");
-    }
+    // function playSource2() {
+    //     playSound(source2, "car_moving.ogg");
+    // }
 
-    function playSource3() {
-        playSound(source3, "tram_sound.ogg");
-    }
+    // function playSource3() {
+    //     playSound(source3, "tram_sound.ogg");
+    // }
 </script>
 
 </html>
