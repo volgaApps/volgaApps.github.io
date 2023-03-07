@@ -36,7 +36,7 @@
             bufferLoader = new BufferLoader(
                 context,
                 [
-                    'sounds/click.ogg',
+                    'sounds/click.mp3',
                     'sounds/alarm.ogg',
                     'sounds/bicycle.ogg',
                     'sounds/car_accident.ogg',
@@ -232,7 +232,7 @@
     function mouseUpEv() {
         upCount++;
         console.log('mouseup event ' + upCount);
-        playCarMovingSound();
+        playClickSound();
     }
 
     function touchstartEv() {
@@ -243,7 +243,7 @@
 
     function touchendEv() {
         console.log('touchend');
-        playCarMovingSound();
+        playClickSound();
     }
 
     function audioContextSettings() {
