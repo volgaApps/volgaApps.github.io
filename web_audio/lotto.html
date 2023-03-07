@@ -32,7 +32,6 @@
                          gainNode = context.createGain();
                          gainNode.gain.value = 0.1;
 
-
                          bufferLoader = new BufferLoader(
                              context,
                              [
@@ -75,7 +74,7 @@
                            function playSource2() {
                             source2 = context.createBufferSource();
                             source2.buffer = bufList[1];
-                            source1.connect(gainNode);
+                            source2.connect(gainNode);
                             gainNode.connect(context.destination);
                             source2.start(0);
                            }
