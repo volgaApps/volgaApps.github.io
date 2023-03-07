@@ -14,247 +14,163 @@
 <h1>Web Audio API Test</h1>
 
 <script>
+function handleMouseDown(evt) {
+                console.log('handleMouseDown');
+                evt.preventDefault();
+                evt.stopPropagation();
+                window.focus();
+                
+              }
 
-    var el = document;
-    // document.addEventListener("touchstart", handleStart);
-    // document.addEventListener('click', clickHandler);
-    document.addEventListener('mousedown', mouseDownEv);
-    document.addEventListener('mouseup', mouseUpEv);
-    document.addEventListener("touchstart", touchstartEv);
-    document.addEventListener("touchend", touchendEv);
-    // el.addEventListener("touchend", handleEnd, false);
-    // el.addEventListener("touchcancel", handleCancel, false);
-    // el.addEventListener("touchmove", handleMove, false);
+              var n = 0;
+              function handleMouseUp(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                console.log('handleMouseUp');
 
-    var downCount = 0;
-    function mouseDownEv() {
-        downCount++;
-        console.log('mousedown event! ' + downCount);
-        console.log(context);
-        console.log('context on mousedown = ' + context);
-        // audioContextSettings();
-    }
+                n++;
+                n = n % 2;
+                if (n == 0) {
+                    console.log('n = ' + n);
+                    playMusicTheme();
+                } else {
+                    stopMusicTheme();
+                    console.log('n = ' + n);
+                }
+                
+              }
 
-    var upCount = 0;
-    function mouseUpEv() {
-        upCount++;
-        console.log('mouseup event ' + upCount);
-        playClickSound();
-    }
-
-    function touchstartEv() {
-        console.log('touchstart');
-        console.log('context state on touchstart = ' + context);
-        // audioContextSettings();
-    }
-
-    function touchendEv() {
-        console.log('touchend');
-        playClickSound();
-    }
-
-    function audioContextSettings() {
-        if (typeof context === 'undefined') {
-            init();
-        }
-
-        if (context.state === 'suspended') {
-            context.resume();
-        }
-
-        if (context.state === 'running') {
-            console.log('context.state is running')
-        }
-
-        console.log('context.state on down event = ' + context.state);
-    }
+              var elem = document;
+              elem.addEventListener('mousedown', handleMouseDown);
+              elem.addEventListener('mouseup', handleMouseUp);
 </script>
 
 <script>
-    window.onload = init;
-    var context;
-    var bufferLoader;
-    var bufList;
-    var rand;
-    var gainNode;
-    var isPlayMusicTheme = false;
-        
-        function init() {
-            console.log('init()');
-            // Fix up prefixing
-            try {
-                window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                context = new window.AudioContext();
-                console.log('context.state on init = ' + context.state);
-            } catch (e) {
-                alert('Web Audio API is not supported in this browser');
-            }
-            
-            bufList = new Array();
-            gainNode = context.createGain();
-            gainNode.gain.value = 0.1;
-    
-    
-            bufferLoader = new BufferLoader(
-                context,
-                [
-                    'car_moving.ogg'
-                  ],
-                  finishedLoading
-                  );
-                  bufferLoader.load();
-              }
-    
-              var clickSound;
-              var alarmSound;
-              var bicycleSound;
-              var carAccidentSound;
-              var carMovingSound;
-              var stepsSound;
-              var tramSound;
-    
-              function finishedLoading(bufferList) {
-                  bufList = bufferList;
-               //    console.log('bufList.length = ' + bufList.length);
-              }
-    
-              function initWebAudioSounds() {
-               // console.log('initMusicTheme()');
-               isPlayMusicTheme = false;
-               init();
-              }
-    
-              function playClickSound() {
-                console.log('context.state on playClickSound() = ' + context.state);
-                  isPlayMusicTheme = true;
-                  clickSound = context.createBufferSource();
-                  clickSound.loop = false;
-                  clickSound.buffer = bufList[0];
-                  clickSound.connect(gainNode);
-                  gainNode.connect(context.destination);
-                  clickSound.start(0);
-              }
-    
-              function playAlarmSound() {
-                alarmSound = context.createBufferSource();
-                alarmSound.buffer = bufList[1];
-                alarmSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                alarmSound.start(0);
-              }
-    
-              function playBicycleSound() {
-                bicycleSound = context.createBufferSource();
-                bicycleSound.buffer = bufList[2];
-                bicycleSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                bicycleSound.start(0);
-              }
-    
-              function playCarAccidentSound() {
-                carAccidentSound = context.createBufferSource();
-                carAccidentSound.buffer = bufList[3];
-                carAccidentSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                carAccidentSound.start(0);
-              }
-    
-              function playCarMovingSound() {
-                carMovingSound = context.createBufferSource();
-                carMovingSound.buffer = bufList[4];
-                carMovingSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                carMovingSound.start(0);
-              }
-    
-              function playStepsSound() {
-                stepsSound = context.createBufferSource();
-                stepsSound.buffer = bufList[5];
-                stepsSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                stepsSound.start(0);
-              }
-    
-              function playTramSound() {
-                tramSound = context.createBufferSource();
-                tramSound.buffer = bufList[6];
-                tramSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                tramSound.start(0);
-              }
-    
-              function pauseMusicTheme() {
-               // console.log('pauseMusicTheme()');
-               context.suspend();
-              }
-    
-              function resumeWebAudio() {
-               // console.log('resumeMusicTheme()');
-               // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
-               context.resume();
-              }
-    
-              function setVolume(volume) {
-               gainNode.gain.value = volume;
-              }
-    
-              function stopMusicTheme() {
-               // console.log('stopMusicTheme()')
-                  try {
-                      clickSound.stop(context.currentTime);
-                  } catch (error) {
-                      console.log('ERROR', 'stop music exception = ' + error)
-                  }
-              }
-    
-    function BufferLoader(context, urlList, callback) {
-        this.context = context;
-        this.urlList = urlList;
-        this.onload = callback;
-        this.bufferList = new Array();
-        this.loadCount = 0;
-    
-      }
-    
-      BufferLoader.prototype.loadBuffer = function(url, index) {
-          // Load buffer asynchronously
-          var request = new XMLHttpRequest();
-          request.open("GET", url, true);
-          request.responseType = "arraybuffer";
-    
-          var loader = this;
-    
-          request.onload = function() {
-              // Asynchronously decode the audio file data in request.response
-              loader.context.decodeAudioData(
-                  request.response,
-                  function(buffer) {
-                      if (!buffer) {
-                          alert('error decoding file data: ' + url);
-                          return;
-                      }
-                      loader.bufferList[index] = buffer;
-                      if (++loader.loadCount == loader.urlList.length)
-                      loader.onload(loader.bufferList);
-                  },
-                  function(error) {
-                      console.error('decodeAudioData error', error);
-                  }
-                  );
-              }
-    
-              request.onerror = function() {
-                //   alert('BufferLoader: XHR error');
-              }
-    
-              request.send();
-          }
-    
-          BufferLoader.prototype.load = function() {
-    
-              for (var i = 0; i < this.urlList.length; ++i)
-              this.loadBuffer(this.urlList[i], i);
-              }
+     window.onload = init;
+                     var context;
+                     var bufferLoader;
+                     var bufList;
+                     var rand;
+                     var gainNode;
+                     var isPlayMusicTheme = false;
+
+                     function init() {
+                         // Fix up prefixing
+                         window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                         context = new AudioContext();
+                         bufList = new Array();
+
+                         gainNode = context.createGain();
+                         gainNode.gain.value = 0.1;
+
+                         bufferLoader = new BufferLoader(
+                             context,
+                             [
+                                 'back_loop.mp3'
+                               ],
+                               finishedLoading
+                               );
+                               bufferLoader.load();
+                           }
+
+                           var source1;
+
+                           function finishedLoading(bufferList) {
+                               bufList = bufferList;
+                            //    console.log('bufList.length = ' + bufList.length);
+                           }
+
+                           function initMusicTheme() {
+                            // console.log('initMusicTheme()');
+                            isPlayMusicTheme = false;
+                            init();
+                           }
+
+                           function playMusicTheme() {
+                            //    console.log('playMusicTheme()');
+                               isPlayMusicTheme = true;
+                               source1 = context.createBufferSource();
+                            //    source1.loop = true;
+
+                               source1.buffer = bufList[0];
+                               // Connect source to a gain node
+                               source1.connect(gainNode);
+                               gainNode.connect(context.destination);
+                               source1.start(0);
+                           }
+
+                           function pauseMusicTheme() {
+                            // console.log('pauseMusicTheme()');
+                            context.suspend();
+                           }
+
+                           function resumeMusicTheme() {
+                            // console.log('resumeMusicTheme()');
+                            // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
+                            if (isPlayMusicTheme) context.resume();
+                            else playMusicTheme();
+                           }
+
+                           function setVolume(volume) {
+                            gainNode.gain.value = volume;
+                           }
+
+                           function stopMusicTheme() {
+                            // console.log('stopMusicTheme()')
+                               try {
+                                   source1.stop(context.currentTime);
+                               } catch (error) {
+                                   console.log('ERROR', 'stop music exception = ' + error)
+                               }
+                           }
+
+               function BufferLoader(context, urlList, callback) {
+                     this.context = context;
+                     this.urlList = urlList;
+                     this.onload = callback;
+                     this.bufferList = new Array();
+                     this.loadCount = 0;
+                   }
+
+                   BufferLoader.prototype.loadBuffer = function(url, index) {
+                       // Load buffer asynchronously
+                       var request = new XMLHttpRequest();
+                       request.open("GET", url, true);
+                       request.responseType = "arraybuffer";
+
+                       var loader = this;
+
+                       request.onload = function() {
+                           // Asynchronously decode the audio file data in request.response
+                           loader.context.decodeAudioData(
+                               request.response,
+                               function(buffer) {
+                                   if (!buffer) {
+                                       alert('error decoding file data: ' + url);
+                                       return;
+                                   }
+                                   loader.bufferList[index] = buffer;
+                                   if (++loader.loadCount == loader.urlList.length)
+                                   loader.onload(loader.bufferList);
+                               },
+                               function(error) {
+                                   console.error('decodeAudioData error', error);
+                               }
+                               );
+                           }
+
+                           request.onerror = function() {
+                               alert('BufferLoader: XHR error');
+                           }
+
+                           request.send();
+                       }
+
+                       BufferLoader.prototype.load = function() {
+
+                           for (var i = 0; i < this.urlList.length; ++i)
+                           this.loadBuffer(this.urlList[i], i);
+                           }
     </script>
 </body>
 
