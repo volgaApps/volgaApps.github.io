@@ -45,7 +45,7 @@
     function touchstartEv() {
         console.log('touchstart');
         console.log('context state on touchstart = ' + context);
-        audioContextSettings();
+        // audioContextSettings();
     }
 
     function touchendEv() {
@@ -98,13 +98,7 @@
             bufferLoader = new BufferLoader(
                 context,
                 [
-                    'click.mp3',
-                    'alarm.ogg',
-                    'bicycle.ogg',
-                    'car_accident.ogg',
-                    'car_moving.ogg',
-                    'steps.ogg',
-                    'tram_sound.ogg'
+                    'sounds/car_moving.ogg'
                   ],
                   finishedLoading
                   );
