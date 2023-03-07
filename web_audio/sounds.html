@@ -61,6 +61,7 @@ function handleMouseDown(evt) {
     let source3;
 
     function getData() {
+        console.log("getData() 1 ");
       sound = new AudioBufferSourceNode(audioCtx);
       request = new XMLHttpRequest();
 
@@ -86,7 +87,8 @@ function handleMouseDown(evt) {
       request.send();
     }
 
-    function getData() {
+    function getData1() {
+        console.log("getData1() ");
       source1 = new AudioBufferSourceNode(audioCtx);
       request = new XMLHttpRequest();
 
@@ -159,7 +161,7 @@ function handleMouseDown(evt) {
     // }
 
     function playSource1() {
-        getData();
+        getData1();
         source1.start(0);
     }
 
