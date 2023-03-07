@@ -135,29 +135,23 @@ function showStickyBannerYndx() {
       
       function init() {
           // Fix up prefixing
-          try {
-              window.AudioContext = window.AudioContext || window.webkitAudioContext;
-              context = new AudioContext();
-              console.log('context.state on init = ' + context.state);
-          } catch (e) {
-              alert('Web Audio API is not supported in this browser');
-          }
+          window.AudioContext = window.AudioContext || window.webkitAudioContext;
+          context = new AudioContext();
           
           bufList = new Array();
           gainNode = context.createGain();
           gainNode.gain.value = 0.1;
   
-  
           bufferLoader = new BufferLoader(
               context,
               [
-                  'sounds/click.mp3',
-                  'sounds/alarm.ogg',
-                  'sounds/bicycle.ogg',
-                  'sounds/car_accident.ogg',
-                  'sounds/car_moving.ogg',
-                  'sounds/steps.ogg',
-                  'sounds/tram_sound.ogg'
+                  'click.mp3',
+                  'alarm.ogg',
+                  'bicycle.ogg',
+                  'car_accident.ogg',
+                  'car_moving.ogg',
+                  'steps.ogg',
+                  'tram_sound.ogg'
                 ],
                 finishedLoading
                 );
