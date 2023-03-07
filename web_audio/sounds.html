@@ -22,7 +22,7 @@
             // Fix up prefixing
             try {
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                context = new AudioContext();
+                context = new window.AudioContext();
                 console.log('context.state on init = ' + context.state);
             } catch (e) {
                 alert('Web Audio API is not supported in this browser');
@@ -36,7 +36,7 @@
             bufferLoader = new BufferLoader(
                 context,
                 [
-                    'click.mp3',
+                    'back_loop.mp3',
                     'alarm.ogg',
                     'bicycle.ogg',
                     'car_accident.ogg',
