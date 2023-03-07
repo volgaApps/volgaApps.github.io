@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+       <title>Lotto Game</title>
+       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+       <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
+       <meta name="mobile-web-app-capable" content="yes">
+       <meta name="apple-mobile-web-app-capable" content="yes">
+
+       <title>Web Audio API - Lotto</title>
+
+</head>
+
+<body>
+
+    <h1>Web Audio API - Lotto</h1>
+<script>
+                    //  window.onload = init;
+                     var context;
+                     var bufferLoader;
+                     var bufList;
+                     var rand;
+                     var gainNode;
+                     var isPlayMusicTheme = false;
+
+                     function init() {
+                         // Fix up prefixing
+                         window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                         context = new AudioContext();
+                         bufList = new Array();
+
+                         gainNode = context.createGain();
+                         gainNode.gain.value = 0.1;
+
+
+                         bufferLoader = new BufferLoader(
+                             context,
+                             [
+                                 'back_loop.mp3'
+                               ],
+                               finishedLoading
+                               );
+                               bufferLoader.load();
+                           }
+
+                           var source1;
+
+                           function finishedLoading(bufferList) {
+                               bufList = bufferList;
+                            //    console.log('bufList.length = ' + bufList.length);
+                           }
+
+                           function initMusicTheme() {
+                            // console.log('initMusicTheme()');
+                            isPlayMusicTheme = false;
+                            init();
+                           }
+
+                           function playMusicTheme() {
+                            //    console.log('playMusicTheme()');
+                               isPlayMusicTheme = true;
+                               source1 = context.createBufferSource();
+                               source1.loop = true;
+
+                               source1.buffer = bufList[0];
+                               // Connect source to a gain node
+                               source1.connect(gainNode);
+                               gainNode.connect(context.destination);
+                               source1.start(0);
+                           }
+
+                           function pauseMusicTheme() {
+                            // console.log('pauseMusicTheme()');
+                            context.suspend();
+                           }
+
+                           function resumeMusicTheme() {
+                            // console.log('resumeMusicTheme()');
+                            // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
+                            if (isPlayMusicTheme) context.resume();
+                            else playMusicTheme();
+                           }
+
+                           function setVolume(volume) {
+                            gainNode.gain.value = volume;
+                           }
+
+                           function stopMusicTheme() {
+                            // console.log('stopMusicTheme()')
+                               try {
+                                   source1.stop(context.currentTime);
+                               } catch (error) {
+                                   console.log('ERROR', 'stop music exception = ' + error)
+                               }
+                           }
+
+               function BufferLoader(context, urlList, callback) {
+                     this.context = context;
+                     this.urlList = urlList;
+                     this.onload = callback;
+                     this.bufferList = new Array();
+                     this.loadCount = 0;
+
+                   }
+
+                   BufferLoader.prototype.loadBuffer = function(url, index) {
+                       // Load buffer asynchronously
+                       var request = new XMLHttpRequest();
+                       request.open("GET", url, true);
+                       request.responseType = "arraybuffer";
+
+                       var loader = this;
+
+                       request.onload = function() {
+                           // Asynchronously decode the audio file data in request.response
+                           loader.context.decodeAudioData(
+                               request.response,
+                               function(buffer) {
+                                   if (!buffer) {
+                                       alert('error decoding file data: ' + url);
+                                       return;
+                                   }
+                                   loader.bufferList[index] = buffer;
+                                   if (++loader.loadCount == loader.urlList.length)
+                                   loader.onload(loader.bufferList);
+                               },
+                               function(error) {
+                                   console.error('decodeAudioData error', error);
+                               }
+                               );
+                           }
+
+                           request.onerror = function() {
+                               alert('BufferLoader: XHR error');
+                           }
+
+                           request.send();
+                       }
+
+                       BufferLoader.prototype.load = function() {
+
+                           for (var i = 0; i < this.urlList.length; ++i)
+                           this.loadBuffer(this.urlList[i], i);
+                           }
+                 </script>
+</body>
+
+<script>
+              function handleMouseDown(evt) {
+                console.log('handleMouseDown');
+                evt.preventDefault();
+                evt.stopPropagation();
+                window.focus();
+                
+              }
+
+              function handleMouseUp(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                console.log('handleMouseUp');
+                playMusicTheme();
+              }
+
+              var elem = document;
+              elem.addEventListener('mousedown', handleMouseDown);
+              elem.addEventListener('mouseup', handleMouseUp);
+              
+       </script>
+</html>
