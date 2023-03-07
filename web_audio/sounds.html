@@ -13,7 +13,10 @@
 <body>
 <h1>Web Audio API Test</h1>
 
-<input type="button" onclick="playMusicTheme()" value = "Play music">
+<input type="button" onclick="playSound1()" value = "Play music">
+<br>
+<br>
+<input type="button" onclick="stopSound1()" value="Stop music">
 
 <script>
 function handleMouseDown(evt) {
@@ -30,12 +33,12 @@ function handleMouseDown(evt) {
                 evt.stopPropagation();
                 console.log('handleMouseUp');
 
-                n++;
-                if (n == 4) n = 0;
-                if (n == 0) playGameSound('click', {loop:false, sound: 1.0});
-                if (n == 1) playGameSound('bicycle', {loop:false, sound: 1.0});
-                if (n == 2) playGameSound('car_accident', {loop:false, sound: 1.0});
-                if (n == 3) playGameSound('car_moving', {loop:false, sound: 1.0});
+                // n++;
+                // if (n == 4) n = 0;
+                // if (n == 0) playGameSound('click', {loop:false, sound: 1.0});
+                // if (n == 1) playGameSound('bicycle', {loop:false, sound: 1.0});
+                // if (n == 2) playGameSound('car_accident', {loop:false, sound: 1.0});
+                // if (n == 3) playGameSound('car_moving', {loop:false, sound: 1.0});
               }
 
               var elem = document;
@@ -43,92 +46,54 @@ function handleMouseDown(evt) {
               elem.addEventListener('mouseup', handleMouseUp);
 </script>
 
-<script>
-
-window.onload = init;
-var sounds = {};
-var audio_ctx;
-
-function init() {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                         audio_ctx = new AudioContext();
-   
-function loadMusic(url, cb) {
-  var req = new XMLHttpRequest();
-  req.open('GET', url, true);
-  // XHR2
-  req.responseType = 'arraybuffer';
- 
-  req.onload = function() {
-    audio_ctx.decodeAudioData(req.response, cb);
-  };
- 
-  req.send();
- 
-var audio = {
-    click: 'sounds/click.ogg',
-    bicycle: 'sounds/bicycle.ogg',
-    car_accident: 'sounds/car_accident.ogg',
-    car_moving: 'sounds/car_moving.ogg'
-}
- 
-var loadAudioData = function(name, url) {
- 
-  // Async
-  loadMusic(url, function(buffer) {
-    sounds[name] = buffer;
-  });
- 
-};
- 
-for (var name in audio) {
-  var url = audio[name];
-  loadAudioData(name, url);
-}
-}
-}
-
-function playSound (buffer, opt, cb) {
-  if (!opt) cb = opt;
-  opt = opt || {};
- 
-  var src = audio_ctx.createBufferSource();
-  src.buffer = buffer[0];
- 
-  gain_node = audio_ctx.createGain();
-  src.connect(gain_node);
-   
-  gain_node.connect(audio_ctx.destination);
-  //console.log(gain_node);
- 
-  if (typeof opt.sound !== 'undefined')
-    gain_node.gain.value = opt.sound;
-  else
-    gain_node.gain.value = 1;
- 
-  // Options
-  if (opt.loop)
-    src.loop = true;
- 
-  src.start(0);
- 
-  cb(src);
-}
- 
-function stopSound (src) {
-  src.noteOff(0);
-}
-
-function playGameSound(name, opt) {
-  opt = opt || {};
- 
-  var cb = function(src) {
-    sounds[name] = src;
-  };
- 
-  playSound( sounds, opt, cb );
-}
-</script>
 </body>
+
+<script>
+    const audioCtx = new AudioContext();
+    let source;
+
+    function getData() {
+      source = new AudioBufferSourceNode(audioCtx);
+      request = new XMLHttpRequest();
+
+      request.open("GET", "back_loop.mp3", true);
+
+      request.responseType = "arraybuffer";
+
+      request.onload = () => {
+        let audioData = request.response;
+
+        audioCtx.decodeAudioData(
+          audioData,
+          (buffer) => {
+            songLength = buffer.duration;
+            source.buffer = buffer;
+            source.playbackRate.value = playbackControl.value;
+            source.connect(audioCtx.destination);
+            source.loop = true;
+
+            loopstartControl.setAttribute("max", Math.floor(songLength));
+            loopendControl.setAttribute("max", Math.floor(songLength));
+          },
+          (e) => {
+            `Error with decoding audio data ${e.error}`;
+          }
+        );
+      };
+
+      request.send();
+    }
+
+    // wire up buttons to stop and play audio, and range slider control
+
+    function playSound1() {
+        getData();
+        source.start(0);
+    }
+
+    function stopSound1() {
+        source.stop(0);
+    }
+</script>
 
 </html>
