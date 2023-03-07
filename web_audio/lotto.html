@@ -35,8 +35,7 @@
                          bufferLoader = new BufferLoader(
                              context,
                              [
-                                 'back_loop.mp3',
-                                 'click.ogg'
+                                 'back_loop.mp3'
                                ],
                                finishedLoading
                                );
@@ -67,16 +66,6 @@
                                source1.connect(gainNode);
                                gainNode.connect(context.destination);
                                source1.start(0);
-                           }
-
-                           var source2;
-
-                           function playSource2() {
-                            source2 = context.createBufferSource();
-                            source2.buffer = bufList[1];
-                            source2.connect(gainNode);
-                            gainNode.connect(context.destination);
-                            source2.start(0);
                            }
 
                            function pauseMusicTheme() {
@@ -175,7 +164,7 @@
                     console.log('n = ' + n);
                     playMusicTheme();
                 } else {
-                    playSource2();
+                    stopMusicTheme();
                     console.log('n = ' + n);
                 }
                 
