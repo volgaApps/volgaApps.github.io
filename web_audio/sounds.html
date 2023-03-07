@@ -254,10 +254,12 @@
 
         if (context.state === 'suspended') {
             context.resume();
+            playClickSound();
         }
 
         if (context.state === 'running') {
             console.log('context.state is running')
+            playClickSound();
         }
 
         console.log('context.state on down event = ' + context.state);
