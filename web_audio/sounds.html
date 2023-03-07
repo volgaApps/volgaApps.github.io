@@ -93,7 +93,7 @@ function playSound (buffer, opt, cb) {
   opt = opt || {};
  
   var src = audio_ctx.createBufferSource();
-  src.buffer = buffer;
+  src.buffer = buffer[0];
  
   gain_node = audio_ctx.createGain();
   src.connect(gain_node);
@@ -126,7 +126,7 @@ function playGameSound(name, opt) {
     sounds[name] = src;
   };
  
-  playSound( sounds[name], opt, cb );
+  playSound( sounds, opt, cb );
 }
 </script>
 </body>
