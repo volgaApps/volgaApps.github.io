@@ -31,15 +31,11 @@ function handleMouseDown(evt) {
                 console.log('handleMouseUp');
 
                 n++;
-                n = n % 2;
-                if (n == 0) {
-                    console.log('n = ' + n);
-                    playMusicTheme();
-                } else {
-                    stopMusicTheme();
-                    console.log('n = ' + n);
-                }
-                
+                if (n == 4) n = 0;
+                if (n == 0) playGameSound('click', {loop:false, sound: 1.0});
+                if (n == 1) playGameSound('bicycle', {loop:false, sound: 1.0});
+                if (n == 2) playGameSound('car_accident', {loop:false, sound: 1.0});
+                if (n == 3) playGameSound('car_moving', {loop:false, sound: 1.0});
               }
 
               var elem = document;
@@ -48,132 +44,87 @@ function handleMouseDown(evt) {
 </script>
 
 <script>
-     window.onload = init;
-                     var context;
-                     var bufferLoader;
-                     var bufList;
-                     var rand;
-                     var gainNode;
-                     var isPlayMusicTheme = false;
+    if (typeof webkitAudioContext !== 'undefined') {
+  var audio_ctx = new webkitAudioContext();
+}
+   
+function loadMusic(url, cb) {
+  var req = new XMLHttpRequest();
+  req.open('GET', url, true);
+  // XHR2
+  req.responseType = 'arraybuffer';
+ 
+  req.onload = function() {
+    audio_ctx.decodeAudioData(req.response, cb);
+  };
+ 
+  req.send();
 
-                     function init() {
-                         // Fix up prefixing
-                         window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                         context = new AudioContext();
-                         bufList = new Array();
+var sounds = {};
+ 
+var audio = {
+    click: 'sounds/click.ogg',
+    bicycle: 'sounds/bicycle.ogg',
+    car_accident: 'sounds/car_accident.ogg',
+    car_moving: 'sounds/car_moving.ogg'
+}
+ 
+var loadAudioData = function(name, url) {
+ 
+  // Async
+  loadMusic(url, function(buffer) {
+    sounds[name] = buffer;
+  });
+ 
+};
+ 
+for (var name in audio) {
+  var url = audio[name];
+  loadAudioData(name, url);
+}
+}
 
-                         gainNode = context.createGain();
-                         gainNode.gain.value = 0.1;
+function playSound (buffer, opt, cb) {
+  if (!opt) cb = opt;
+  opt = opt || {};
+ 
+  var src = audio_ctx.createBufferSource();
+  src.buffer = buffer;
+ 
+  gain_node = audio_ctx.createGainNode();
+  src.connect(gain_node);
+   
+  gain_node.connect(audio_ctx.destination);
+  //console.log(gain_node);
+ 
+  if (typeof opt.sound !== 'undefined')
+    gain_node.gain.value = opt.sound;
+  else
+    gain_node.gain.value = 1;
+ 
+  // Options
+  if (opt.loop)
+    src.loop = true;
+ 
+  src.noteOn(0);
+ 
+  cb(src);
+}
+ 
+function stopSound (src) {
+  src.noteOff(0);
+}
 
-                         bufferLoader = new BufferLoader(
-                             context,
-                             [
-                                 'sounds/back_loop.mp3'
-                               ],
-                               finishedLoading
-                               );
-                               bufferLoader.load();
-                           }
-
-                           var source1;
-
-                           function finishedLoading(bufferList) {
-                               bufList = bufferList;
-                            //    console.log('bufList.length = ' + bufList.length);
-                           }
-
-                           function initMusicTheme() {
-                            // console.log('initMusicTheme()');
-                            isPlayMusicTheme = false;
-                            init();
-                           }
-
-                           function playMusicTheme() {
-                            //    console.log('playMusicTheme()');
-                               isPlayMusicTheme = true;
-                               source1 = context.createBufferSource();
-                            //    source1.loop = true;
-
-                               source1.buffer = bufList[0];
-                               // Connect source to a gain node
-                               source1.connect(gainNode);
-                               gainNode.connect(context.destination);
-                               source1.start(0);
-                           }
-
-                           function pauseMusicTheme() {
-                            // console.log('pauseMusicTheme()');
-                            context.suspend();
-                           }
-
-                           function resumeMusicTheme() {
-                            // console.log('resumeMusicTheme()');
-                            // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
-                            if (isPlayMusicTheme) context.resume();
-                            else playMusicTheme();
-                           }
-
-                           function setVolume(volume) {
-                            gainNode.gain.value = volume;
-                           }
-
-                           function stopMusicTheme() {
-                            // console.log('stopMusicTheme()')
-                               try {
-                                   source1.stop(context.currentTime);
-                               } catch (error) {
-                                   console.log('ERROR', 'stop music exception = ' + error)
-                               }
-                           }
-
-               function BufferLoader(context, urlList, callback) {
-                     this.context = context;
-                     this.urlList = urlList;
-                     this.onload = callback;
-                     this.bufferList = new Array();
-                     this.loadCount = 0;
-                   }
-
-                   BufferLoader.prototype.loadBuffer = function(url, index) {
-                       // Load buffer asynchronously
-                       var request = new XMLHttpRequest();
-                       request.open("GET", url, true);
-                       request.responseType = "arraybuffer";
-
-                       var loader = this;
-
-                       request.onload = function() {
-                           // Asynchronously decode the audio file data in request.response
-                           loader.context.decodeAudioData(
-                               request.response,
-                               function(buffer) {
-                                   if (!buffer) {
-                                       alert('error decoding file data: ' + url);
-                                       return;
-                                   }
-                                   loader.bufferList[index] = buffer;
-                                   if (++loader.loadCount == loader.urlList.length)
-                                   loader.onload(loader.bufferList);
-                               },
-                               function(error) {
-                                   console.error('decodeAudioData error', error);
-                               }
-                               );
-                           }
-
-                           request.onerror = function() {
-                               alert('BufferLoader: XHR error');
-                           }
-
-                           request.send();
-                       }
-
-                       BufferLoader.prototype.load = function() {
-
-                           for (var i = 0; i < this.urlList.length; ++i)
-                           this.loadBuffer(this.urlList[i], i);
-                           }
-    </script>
+function playGameSound(name, opt) {
+  opt = opt || {};
+ 
+  var cb = function(src) {
+    sounds[name] = src;
+  };
+ 
+  playSound( sounds[name], opt, cb );
+}
+</script>
 </body>
 
 </html>
