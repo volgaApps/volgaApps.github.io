@@ -66,14 +66,8 @@ function handleMouseDown(evt) {
         audioCtx.decodeAudioData(
           audioData,
           (buffer) => {
-            songLength = buffer.duration;
             source.buffer = buffer;
-            source.playbackRate.value = playbackControl.value;
             source.connect(audioCtx.destination);
-            source.loop = true;
-
-            loopstartControl.setAttribute("max", Math.floor(songLength));
-            loopendControl.setAttribute("max", Math.floor(songLength));
           },
           (e) => {
             `Error with decoding audio data ${e.error}`;
