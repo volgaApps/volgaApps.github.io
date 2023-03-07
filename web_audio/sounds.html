@@ -249,6 +249,7 @@
     function audioContextSettings() {
         if (typeof context === 'undefined') {
             init();
+            playClickSound();
         }
 
         if (context.state === 'suspended') {
