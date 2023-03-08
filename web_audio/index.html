@@ -103,34 +103,6 @@
       })
     }
   </script>
-
-    <script>
-    function initWebAudioSounds() {
-      
-    }
-
-    function pauseMusicTheme() {
-      // console.log('pauseMusicTheme()');
-      context.suspend();
-    }
-
-    function resumeWebAudio() {
-      // console.log('resumeMusicTheme()');
-      // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
-      context.resume();
-    }
-
-    function setVolume(volume) {
-      // gainNode.gain.value = volume;
-    }
-
-    function stopMusicTheme() {
-      // console.log('stopMusicTheme()')
-     
-    }
-
-  </script>
-
 </head>
 
 <body>
@@ -185,6 +157,28 @@
     request.send();
     return source;
   }
+
+    function pauseWebAudio() {
+      // console.log('pauseMusicTheme()');
+      audioCtx.suspend();
+    }
+
+    function resumeWebAudio() {
+      if (audioCtx === 'undefined') {
+        audioCtx = new AudioContext();
+      } else {
+        audioCtx.resume();
+      }
+    }
+
+    function setVolume(volume) {
+      // gainNode.gain.value = volume;
+    }
+
+    function stopMusicTheme() {
+      // console.log('stopMusicTheme()')
+     
+    }
 
   function playSound(source, soundsName) {
     source = getData(source, soundsName);
