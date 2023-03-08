@@ -1,313 +1,196 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>CrossRoadPDD</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <!-- Yandex Games SDK -->
-    <script src="https://yandex.ru/games/sdk/v2"></script>
-    <script>
-                    YaGames
-                        .init({
-						screen: {
-                            fullscreen: false,
-                            orientation: {
-                            value: 'portrait',
-							    }
-							},
-						adv: {
-                            onAdvClose: wasShown => {
-                            console.info('adv closed!');
-                                }
-                            }
-						})
-						.then(ysdk => {
-                                                 sdk = ysdk;
-                           ysdk.adv.showFullscreenAdv();
-        });
-			  </script>
+  <title>CrossRoadPDD</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link href="styles.css" rel="stylesheet" type="text/css">
+  <!-- Yandex Games SDK -->
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <script>
+    YaGames
+      .init({
+        screen: {
+          fullscreen: false,
+          orientation: {
+            value: 'portrait',
+          }
+        },
+        adv: {
+          onAdvClose: wasShown => {
+            console.info('adv closed!');
+          }
+        }
+      })
+      .then(ysdk => {
+        sdk = ysdk;
+        ysdk.adv.showFullscreenAdv();
+      });
+  </script>
 
-    <script>
-       function showYndxAd() {
-              console.log("start showYndxAd function, version = 2");
-              sdk.adv.showFullscreenAdv({callbacks:{}});
-       }
-</script>
-
-    <script>
-       function getYndxPayload() {
-              console.log("start getYndxPayload");
-              if (typeof(sdk)=="undefined")
-                     return "undefined";
-              else return ""+sdk.environment.payload;
-       }
-
-       function setYndxPayloadEmpty() {
-              sdk.environment.payload = "undefined";
-       }
-       
-</script>
-
-    <script>
-function showStickyBannerYndx() {
-       sdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing , reason }) => {
-    if (stickyAdvIsShowing) {
-        console.log("sticky yndxBanner is showing");
-    } else if(reason) {
-        console.log("sticky yndxBanner isn't showing")
-        console.log(reason);
-    } else {
-       console.log("show sticky yndxBanner")
-        sdk.adv.showBannerAdv();
+  <script>
+    function showYndxAd() {
+      console.log("start showYndxAd function, version = 2");
+      sdk.adv.showFullscreenAdv({ callbacks: {} });
     }
-})
-}
-</script>
+  </script>
 
-    <script>
+  <script>
+    function getYndxPayload() {
+      console.log("start getYndxPayload");
+      if (typeof (sdk) == "undefined")
+        return "undefined";
+      else return "" + sdk.environment.payload;
+    }
+
+    function setYndxPayloadEmpty() {
+      sdk.environment.payload = "undefined";
+    }
+
+  </script>
+
+  <script>
+    function showStickyBannerYndx() {
+      sdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing, reason }) => {
+        if (stickyAdvIsShowing) {
+          console.log("sticky yndxBanner is showing");
+        } else if (reason) {
+          console.log("sticky yndxBanner isn't showing")
+          console.log(reason);
+        } else {
+          console.log("show sticky yndxBanner")
+          sdk.adv.showBannerAdv();
+        }
+      })
+    }
+  </script>
+
+  <script>
     function hideStickyBannerYndx() {
-    console.log("hideStickyBannerYndx() in hide");
-    sdk.adv.hideBannerAdv();
+      console.log("hideStickyBannerYndx() in hide");
+      sdk.adv.hideBannerAdv();
     }
-</script>
+  </script>
 
-    <script>
-        function appLaunchFromVK() {
-        return false;
-        }
-</script>
+  <script>
+    function appLaunchFromVK() {
+      return false;
+    }
+  </script>
 
-    <script>
-        function showHtmlRewardedVideoAd() {
-        sdk.adv.showRewardedVideo({
+  <script>
+    function showHtmlRewardedVideoAd() {
+      sdk.adv.showRewardedVideo({
         callbacks: {
-        onOpen: () => {
-          console.log('Video ad open.');
-        },
-        onRewarded: () => {
-          console.log('Rewarded!');
-          window.setOnRewarded(); // оповестить  HtmlLauncher о получении пользователем вознаграждения
-        },
-        onClose: () => {
-          console.log('Video ad closed.');
-        },
-        onError: (e) => {
-          console.log('Error while open video ad:', e);
-          window.setRewardedOnError(); // оповестить об ошибке в загрузке объявления
+          onOpen: () => {
+            console.log('Video ad open.');
+          },
+          onRewarded: () => {
+            console.log('Rewarded!');
+            window.setOnRewarded(); // оповестить  HtmlLauncher о получении пользователем вознаграждения
+          },
+          onClose: () => {
+            console.log('Video ad closed.');
+          },
+          onError: (e) => {
+            console.log('Error while open video ad:', e);
+            window.setRewardedOnError(); // оповестить об ошибке в загрузке объявления
+          }
         }
+      })
     }
-})
-        }
-    </script>
+  </script>
 </head>
 
 <body>
-<div align="center" id="embed-html"></div>
-<script type="text/javascript" src="html/html.nocache.js"></script>
+  <div align="center" id="embed-html"></div>
+  <script type="text/javascript" src="html/html.nocache.js"></script>
 </body>
 
 <script>
-              function handleMouseDown(evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-                window.focus();
-              }
+  function handleMouseDown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    window.focus();
+  }
 
-              function handleMouseUp(evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-              }
-              document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
-              document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
-       </script>
+  function handleMouseUp(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+  document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
+  document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
+</script>
 
 <script>
-  window.onload = init;
-  var context;
-  var bufferLoader;
-  var bufList;
-  var rand;
-  var gainNode;
-  var isPlayMusicTheme = false;
-      
-      function init() {
-          // Fix up prefixing
-          window.AudioContext = window.AudioContext || window.webkitAudioContext;
-          context = new AudioContext();
-          
-          bufList = new Array();
-          gainNode = context.createGain();
-          gainNode.gain.value = 0.1;
-  
-          bufferLoader = new BufferLoader(
-              context,
-              [
-                  'click.mp3',
-                  'alarm.ogg',
-                  'bicycle.ogg',
-                  'car_accident.ogg',
-                  'car_moving.ogg',
-                  'steps.ogg',
-                  'tram_sound.ogg'
-                ],
-                finishedLoading
-                );
-                bufferLoader.load();
-            }
-  
-            var clickSound;
-            var alarmSound;
-            var bicycleSound;
-            var carAccidentSound;
-            var carMovingSound;
-            var stepsSound;
-            var tramSound;
-  
-            function finishedLoading(bufferList) {
-                bufList = bufferList;
-             //    console.log('bufList.length = ' + bufList.length);
-            }
-  
-            function initWebAudioSounds() {
-             // console.log('initMusicTheme()');
-             isPlayMusicTheme = false;
-             init();
-            }
-  
-            function playClickSound() {
-              // alert('context.state on playClickSound() = ' + context.state);
-              console.log('context.state on playClickSound() = ' + context.state);
-                isPlayMusicTheme = true;
-                clickSound = context.createBufferSource();
-                clickSound.loop = false;
-                clickSound.buffer = bufList[0];
-                clickSound.connect(gainNode);
-                gainNode.connect(context.destination);
-                clickSound.start(0);
-            }
-  
-            function playAlarmSound() {
-              alarmSound = context.createBufferSource();
-              alarmSound.buffer = bufList[1];
-              alarmSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              alarmSound.start(0);
-            }
-  
-            function playBicycleSound() {
-              bicycleSound = context.createBufferSource();
-              bicycleSound.buffer = bufList[2];
-              bicycleSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              bicycleSound.start(0);
-            }
-  
-            function playCarAccidentSound() {
-              carAccidentSound = context.createBufferSource();
-              carAccidentSound.buffer = bufList[3];
-              carAccidentSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              carAccidentSound.start(0);
-            }
-  
-            function playCarMovingSound() {
-              carMovingSound = context.createBufferSource();
-              carMovingSound.buffer = bufList[4];
-              carMovingSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              carMovingSound.start(0);
-            }
-  
-            function playStepsSound() {
-              stepsSound = context.createBufferSource();
-              stepsSound.buffer = bufList[5];
-              stepsSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              stepsSound.start(0);
-            }
-  
-            function playTramSound() {
-              tramSound = context.createBufferSource();
-              tramSound.buffer = bufList[6];
-              tramSound.connect(gainNode);
-              gainNode.connect(context.destination);
-              tramSound.start(0);
-            }
-  
-            function pauseMusicTheme() {
-             // console.log('pauseMusicTheme()');
-             context.suspend();
-            }
-  
-            function resumeWebAudio() {
-             // console.log('resumeMusicTheme()');
-             // console.log('isPlayMusicTheme = ' + isPlayMusicTheme)
-             context.resume();
-            }
-  
-            function setVolume(volume) {
-             gainNode.gain.value = volume;
-            }
-  
-            function stopMusicTheme() {
-             // console.log('stopMusicTheme()')
-                try {
-                    clickSound.stop(context.currentTime);
-                } catch (error) {
-                    console.log('ERROR', 'stop music exception = ' + error)
-                }
-            }
-  
-  function BufferLoader(context, urlList, callback) {
-      this.context = context;
-      this.urlList = urlList;
-      this.onload = callback;
-      this.bufferList = new Array();
-      this.loadCount = 0;
-  
-    }
-  
-    BufferLoader.prototype.loadBuffer = function(url, index) {
-        // Load buffer asynchronously
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.responseType = "arraybuffer";
-  
-        var loader = this;
-  
-        request.onload = function() {
-            // Asynchronously decode the audio file data in request.response
-            loader.context.decodeAudioData(
-                request.response,
-                function(buffer) {
-                    if (!buffer) {
-                        alert('error decoding file data: ' + url);
-                        return;
-                    }
-                    loader.bufferList[index] = buffer;
-                    if (++loader.loadCount == loader.urlList.length)
-                    loader.onload(loader.bufferList);
-                },
-                function(error) {
-                    console.error('decodeAudioData error', error);
-                }
-                );
-            }
-  
-            request.onerror = function() {
-                alert('BufferLoader: XHR error');
-            }
-  
-            request.send();
+  const audioCtx = new AudioContext();
+  let alarmSound;
+  let bicycleSound;
+  let carAccidentSound;
+  let carMovingSound;
+  let clickSound;
+  let stepsSound;
+  let tramSound;
+
+  function getData(source, soundsName) {
+    source = new AudioBufferSourceNode(audioCtx);
+    request = new XMLHttpRequest();
+    request.open("GET", soundsName, true);
+    request.responseType = "arraybuffer";
+    request.onload = () => {
+      let audioData = request.response;
+      audioCtx.decodeAudioData(
+        audioData,
+        (buffer) => {
+          source.buffer = buffer;
+          source.connect(audioCtx.destination);
+        },
+        (e) => {
+          `Error with decoding audio data ${e.error}`;
         }
-  
-        BufferLoader.prototype.load = function() {
-  
-            for (var i = 0; i < this.urlList.length; ++i)
-            this.loadBuffer(this.urlList[i], i);
-            }
-  </script>
+      );
+    };
+    request.send();
+    return source;
+  }
+
+  function playSound(source, soundsName) {
+    source = getDatas(source, soundsName);
+    source.start(0);
+  }
+
+
+  function playClickSound() {
+    playSound(clickSound, "sounds/click.mp3");
+  }
+
+  function playAlarmSound() {
+    playSound(alarmSound, "sounds/alarm.mp3");
+  }
+
+  function playBicycleSound() {
+    playSound(bicycleSound, "sounds/bicycle.mp3");
+  }
+
+  function playCarAccidentSound() {
+    playSound(carAccidentSound, "sounds/car_accident.mp3");
+  }
+
+  function playCarMovingSound() {
+    playSound(carMovingSound, "sounds/car_moving.mp3");
+  }
+
+  function playStepsSound() {
+    playSound(stepsSound, "sounds/steps.mp3");
+  }
+
+  function playTramSound() {
+    playSound(tramSound, "sounds/tram_sound.mp3");
+  }
+
+</script>
+
 </html>
