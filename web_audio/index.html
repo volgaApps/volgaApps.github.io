@@ -127,7 +127,7 @@
 
 <script>
   const audioCtx = new AudioContext();
-  let alarmSound;
+  let alarmSound = getData(alarmSound, "sounds/alarm.mp3");
   let bicycleSound;
   let carAccidentSound;
   let carMovingSound;
@@ -165,7 +165,7 @@
 
     function resumeWebAudio() {
       console.log('audioCtx in resumeWebAudio = ' + audioCtx);
-      console.log('audioCtx.state in resumeWebAudio = ' + audioCtx);
+      console.log('audioCtx.state in resumeWebAudio = ' + audioCtx.state);
       if (audioCtx === 'undefined') {
         audioCtx = new AudioContext();
       } else {
@@ -193,7 +193,13 @@
   }
 
   function playAlarmSound() {
-    playSound(alarmSound, "sounds/alarm.mp3");
+    console.log('playAlarmSound() from index.html');
+    // playSound(alarmSound, "sounds/alarm.mp3");
+    alarmSound.start(0);
+  }
+
+  function stopAlarmSound() {
+    // alarmSound.stop(0);
   }
 
   function playBicycleSound() {
