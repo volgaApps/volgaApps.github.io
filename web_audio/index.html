@@ -135,26 +135,19 @@
   let stepsSound;
   let tramSound;
 
-  function getData(source, soundsName) {
-    console.log("getDatas()");
-    source = new AudioBufferSourceNode(audioCtx);
-    request = new XMLHttpRequest();
-    request.open("GET", soundsName, true);
-    request.responseType = "arraybuffer";
-    request.onload = () => {
-      let audioData = request.response;
-      audioCtx.decodeAudioData(
-        audioData,
-        (buffer) => {
-          source.buffer = buffer;
-          source.connect(audioCtx.destination);
-        },
-        (e) => {
-          `Error with decoding audio data ${e.error}`;
-        }
-      );
-    };
-    request.send();
+  // функция, декодирующая звук асинхронно
+  const fetchSong = async (path) => {
+    const xhr = await fetch(path);
+    const arrayBuffer = await xhr.arrayBuffer();
+    return audioCtx.decodeAudioData(arrayBuffer);
+  };
+
+  function play(audioBuffer, source, loop) {
+    source = audioCtx.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioCtx.destination);
+    source.loop = loop;
+    source.start(0);
     return source;
   }
 
@@ -182,79 +175,57 @@
 
   }
 
-  function playSound(source, soundsName) {
-    source = getData(source, soundsName);
-    source.start(0);
-  }
-
-
   function playClickSound() {
-    playSound(clickSound, "sounds/click.mp3");
+    const songDataPromise = fetchSong("sounds/click.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      clickSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
   function playAlarmSound() {
-    // alarmSound = fetchAndPlay(alarmSound, 'sounds/alarm.mp3', true);
-    // playSound(alarmSound, "sounds/alarm.mp3");
     const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
-  songDataPromise.then((audioBuffer) => {
-    alarmSound = play(audioBuffer, alarmSound, true);
-    console.log("audioBuffer = " + audioBuffer);                    // AudioBuffer {}
-    console.log("audioBuffer.getChannelData(0) = " + audioBuffer.getChannelData(0));  // Float32Array []
-  });
+    songDataPromise.then((audioBuffer) => {
+      alarmSound = play(audioBuffer, alarmSound, true);
+    });
   }
-
-  function play(audioBuffer, source, loop) {
-    source = audioCtx.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(audioCtx.destination);
-    source.loop = loop;
-    source.start(0);
-    return source;
-  }
-
-  async function fetchAndPlay(source, url, loop) {
-    audioCtx.decodeAudioData(
-      await fetch(url)
-        .then(r => r.arrayBuffer()),
-      decoded => play(decoded, source, loop)
-    );
-  }
-
-  const fetchSong = async (path) => {
-    const xhr = await fetch(path);
-    const arrayBuffer = await xhr.arrayBuffer();
-    return audioCtx.decodeAudioData(arrayBuffer);
-  };
-
-  const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
-  songDataPromise.then((audioBuffer) => {
-    // play(audioBuffer, alarmSound, true);
-    console.log(audioBuffer);                    // AudioBuffer {}
-    console.log(audioBuffer.getChannelData(0));  // Float32Array []
-  });
 
   function stopAlarmSound() {
     alarmSound.stop(0);
   }
 
   function playBicycleSound() {
-    playSound(bicycleSound, "sounds/bicycle.mp3");
+    const songDataPromise = fetchSong("sounds/bicycle.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      bicycleSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
   function playCarAccidentSound() {
-    playSound(carAccidentSound, "sounds/car_accident.mp3");
+    const songDataPromise = fetchSong("sounds/car_accident.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      carAccidentSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
   function playCarMovingSound() {
-    playSound(carMovingSound, "sounds/car_moving.mp3");
+    const songDataPromise = fetchSong("sounds/car_moving.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      carMovingSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
   function playStepsSound() {
-    playSound(stepsSound, "sounds/steps.mp3");
+    const songDataPromise = fetchSong("sounds/steps.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      stepsSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
   function playTramSound() {
-    playSound(tramSound, "sounds/tram_sound.mp3");
+    const songDataPromise = fetchSong("sounds/tram_sound.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      tramSound = play(audioBuffer, alarmSound, true);
+    });
   }
 
 </script>
