@@ -2,15 +2,15 @@
 <html>
 
 <head>
-    <title>CrossRoadPDD</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <!-- Yandex Games SDK -->
-    <script src="https://yandex.ru/games/sdk/v2"></script>
-    <script>
+  <title>CrossRoadPDD</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link href="styles.css" rel="stylesheet" type="text/css">
+  <!-- Yandex Games SDK -->
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <script>
     YaGames
       .init({
         screen: {
@@ -31,14 +31,14 @@
       });
   </script>
 
-    <script>
+  <script>
     function showYndxAd() {
       console.log("start showYndxAd function, version = 2");
       sdk.adv.showFullscreenAdv({ callbacks: {} });
     }
   </script>
 
-    <script>
+  <script>
     function getYndxPayload() {
       console.log("start getYndxPayload");
       if (typeof (sdk) == "undefined")
@@ -52,7 +52,7 @@
 
   </script>
 
-    <script>
+  <script>
     function showStickyBannerYndx() {
       sdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing, reason }) => {
         if (stickyAdvIsShowing) {
@@ -68,20 +68,20 @@
     }
   </script>
 
-    <script>
+  <script>
     function hideStickyBannerYndx() {
       console.log("hideStickyBannerYndx() in hide");
       sdk.adv.hideBannerAdv();
     }
   </script>
 
-    <script>
+  <script>
     function appLaunchFromVK() {
       return false;
     }
   </script>
 
-    <script>
+  <script>
     function showHtmlRewardedVideoAd() {
       sdk.adv.showRewardedVideo({
         callbacks: {
@@ -106,8 +106,8 @@
 </head>
 
 <body>
-<div align="center" id="embed-html"></div>
-<script type="text/javascript" src="html/html.nocache.js"></script>
+  <div align="center" id="embed-html"></div>
+  <script type="text/javascript" src="html/html.nocache.js"></script>
 </body>
 
 <script>
@@ -127,16 +127,16 @@
 
 <script>
   const audioCtx = new AudioContext();
-  let alarmSound = getData(alarmSound, "sounds/alarm.mp3");
+  let alarmSound;
   let bicycleSound;
   let carAccidentSound;
   let carMovingSound;
-  let clickSound = getData(clickSound, "sounds/click.mp3");
+  let clickSound;
   let stepsSound;
   let tramSound;
 
   function getData(source, soundsName) {
-    console.log("getData()");
+    console.log("getDatas()");
     source = new AudioBufferSourceNode(audioCtx);
     request = new XMLHttpRequest();
     request.open("GET", soundsName, true);
@@ -158,29 +158,29 @@
     return source;
   }
 
-    function pauseWebAudio() {
-      // console.log('pauseMusicTheme()');
-      audioCtx.suspend();
-    }
+  function pauseWebAudio() {
+    // console.log('pauseMusicTheme()');
+    audioCtx.suspend();
+  }
 
-    function resumeWebAudio() {
-      console.log('audioCtx in resumeWebAudio = ' + audioCtx);
-      console.log('audioCtx.state in resumeWebAudio = ' + audioCtx.state);
-      if (audioCtx === 'undefined') {
-        audioCtx = new AudioContext();
-      } else {
-        audioCtx.resume();
-      }
+  function resumeWebAudio() {
+    console.log('audioCtx in resumeWebAudio = ' + audioCtx);
+    console.log('audioCtx.state in resumeWebAudio = ' + audioCtx.state);
+    if (audioCtx === 'undefined') {
+      audioCtx = new AudioContext();
+    } else {
+      audioCtx.resume();
     }
+  }
 
-    function setVolume(volume) {
-      // gainNode.gain.value = volume;
-    }
+  function setVolume(volume) {
+    // gainNode.gain.value = volume;
+  }
 
-    function stopMusicTheme() {
-      // console.log('stopMusicTheme()')
-     
-    }
+  function stopMusicTheme() {
+    // console.log('stopMusicTheme()')
+
+  }
 
   function playSound(source, soundsName) {
     source = getData(source, soundsName);
@@ -189,18 +189,52 @@
 
 
   function playClickSound() {
-    // playSound(clickSound, "sounds/click.mp3");
-    clickSound.start(0);
+    playSound(clickSound, "sounds/click.mp3");
   }
 
   function playAlarmSound() {
-    console.log('playAlarmSound() from index.html');
+    // alarmSound = fetchAndPlay(alarmSound, 'sounds/alarm.mp3', true);
     // playSound(alarmSound, "sounds/alarm.mp3");
-    alarmSound.start(0);
+    const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
+  songDataPromise.then((audioBuffer) => {
+    alarmSound = play(audioBuffer, alarmSound, true);
+    console.log("audioBuffer = " + audioBuffer);                    // AudioBuffer {}
+    console.log("audioBuffer.getChannelData(0) = " + audioBuffer.getChannelData(0));  // Float32Array []
+  });
   }
 
+  function play(audioBuffer, source, loop) {
+    source = audioCtx.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioCtx.destination);
+    source.loop = loop;
+    source.start(0);
+    return source;
+  }
+
+  async function fetchAndPlay(source, url, loop) {
+    audioCtx.decodeAudioData(
+      await fetch(url)
+        .then(r => r.arrayBuffer()),
+      decoded => play(decoded, source, loop)
+    );
+  }
+
+  const fetchSong = async (path) => {
+    const xhr = await fetch(path);
+    const arrayBuffer = await xhr.arrayBuffer();
+    return audioCtx.decodeAudioData(arrayBuffer);
+  };
+
+  const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
+  songDataPromise.then((audioBuffer) => {
+    // play(audioBuffer, alarmSound, true);
+    console.log(audioBuffer);                    // AudioBuffer {}
+    console.log(audioBuffer.getChannelData(0));  // Float32Array []
+  });
+
   function stopAlarmSound() {
-    // alarmSound.stop(0);
+    alarmSound.stop(0);
   }
 
   function playBicycleSound() {
