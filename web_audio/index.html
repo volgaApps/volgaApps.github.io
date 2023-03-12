@@ -135,8 +135,10 @@
   let tramSound;
 
   const audioCtx = new AudioContext();
+  const gainNode = audioCtx.createGain();
   unlockAudioContext(audioCtx);
 
+  // аудиоконтекст разблокируется после первого жеста пользователя (обязательно)
   function unlockAudioContext(audioCtx) {
     if (audioCtx.state !== 'suspended') return;
     const b = document.body;
@@ -145,8 +147,7 @@
     function unlock() { audioCtx.resume().then(clean); }
     function clean() { events.forEach(e => b.removeEventListener(e, unlock)); }
   }
-  
-  console.log('audioCtx.state = ' + audioCtx.state);
+
   // функция, декодирующая звук асинхронно
   const fetchSong = async (path) => {
     const xhr = await fetch(path);
@@ -157,7 +158,9 @@
   function play(audioBuffer, source, loop) {
     source = audioCtx.createBufferSource();
     source.buffer = audioBuffer;
-    source.connect(audioCtx.destination);
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    // source.connect(audioCtx.destination);
     source.loop = loop;
     source.start(0);
     return source;
@@ -169,17 +172,15 @@
   }
 
   function resumeWebAudio() {
-    console.log('audioCtx in resumeWebAudio = ' + audioCtx);
-    console.log('audioCtx.state in resumeWebAudio = ' + audioCtx.state);
-    if (audioCtx === 'undefined') {
-      audioCtx = new AudioContext();
-    } else {
+    if (audioCtx.state === 'suspended') {
+      console.log('audioCtx in resumeWebAudio if suspended = ' + audioCtx);
+      console.log('audioCtx.state in resumeWebAudio if suspended = ' + audioCtx.state);
       audioCtx.resume();
     }
   }
 
   function setVolume(volume) {
-    // gainNode.gain.value = volume;
+    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
   }
 
   function stopMusicTheme() {
