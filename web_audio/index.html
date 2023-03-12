@@ -7,7 +7,6 @@
   <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link href="styles.css" rel="stylesheet" type="text/css">
   <!-- Yandex Games SDK -->
   <script src="https://yandex.ru/games/sdk/v2"></script>
   <script>
@@ -126,7 +125,7 @@
 </script>
 
 <script>
-  const audioCtx = new AudioContext();
+
   let alarmSound;
   let bicycleSound;
   let carAccidentSound;
@@ -135,6 +134,19 @@
   let stepsSound;
   let tramSound;
 
+  const audioCtx = new AudioContext();
+  unlockAudioContext(audioCtx);
+
+  function unlockAudioContext(audioCtx) {
+    if (audioCtx.state !== 'suspended') return;
+    const b = document.body;
+    const events = ['touchstart', 'touchend', 'mousedown', 'keydown'];
+    events.forEach(e => b.addEventListener(e, unlock, false));
+    function unlock() { audioCtx.resume().then(clean); }
+    function clean() { events.forEach(e => b.removeEventListener(e, unlock)); }
+  }
+  
+  console.log('audioCtx.state = ' + audioCtx.state);
   // функция, декодирующая звук асинхронно
   const fetchSong = async (path) => {
     const xhr = await fetch(path);
