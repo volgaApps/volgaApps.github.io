@@ -178,7 +178,7 @@
   function playClickSound() {
     const songDataPromise = fetchSong("sounds/click.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      clickSound = play(audioBuffer, alarmSound, true);
+      clickSound = play(audioBuffer, alarmSound, false);
     });
   }
 
@@ -196,35 +196,35 @@
   function playBicycleSound() {
     const songDataPromise = fetchSong("sounds/bicycle.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      bicycleSound = play(audioBuffer, alarmSound, true);
+      bicycleSound = play(audioBuffer, alarmSound, false);
     });
   }
 
   function playCarAccidentSound() {
     const songDataPromise = fetchSong("sounds/car_accident.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      carAccidentSound = play(audioBuffer, alarmSound, true);
+      carAccidentSound = play(audioBuffer, alarmSound, false);
     });
   }
 
   function playCarMovingSound() {
     const songDataPromise = fetchSong("sounds/car_moving.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      carMovingSound = play(audioBuffer, alarmSound, true);
+      carMovingSound = play(audioBuffer, alarmSound, false);
     });
   }
 
   function playStepsSound() {
     const songDataPromise = fetchSong("sounds/steps.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      stepsSound = play(audioBuffer, alarmSound, true);
+      stepsSound = play(audioBuffer, alarmSound, false);
     });
   }
 
   function playTramSound() {
     const songDataPromise = fetchSong("sounds/tram_sound.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      tramSound = play(audioBuffer, alarmSound, true);
+      tramSound = play(audioBuffer, alarmSound, false);
     });
   }
 
