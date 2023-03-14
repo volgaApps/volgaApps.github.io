@@ -134,6 +134,8 @@
   let stepsSound;
   let tramSound;
 
+  var soundsArray = [];
+
   const audioCtx = new AudioContext();
   const gainNode = audioCtx.createGain();
   unlockAudioContext(audioCtx);
@@ -155,19 +157,19 @@
     return audioCtx.decodeAudioData(arrayBuffer);
   };
 
-  function play(audioBuffer, source, loop) {
+  function play(audioBuffer, source, volume, loop) {
     source = audioCtx.createBufferSource();
+    
     source.buffer = audioBuffer;
     source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-    // source.connect(audioCtx.destination);
+    gainNode.gain.setValueAtTime(volume, 0);
     source.loop = loop;
-    source.start(0);
+    source.start(audioCtx.currentTime);
     return source;
   }
 
   function pauseWebAudio() {
-    // console.log('pauseMusicTheme()');
     audioCtx.suspend();
   }
 
@@ -183,61 +185,72 @@
     gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
   }
 
-  function stopMusicTheme() {
-    // console.log('stopMusicTheme()')
-
-  }
-
-  function playClickSound() {
+  function playClickSound(volume) {
     const songDataPromise = fetchSong("sounds/click.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      clickSound = play(audioBuffer, alarmSound, false);
+      clickSound = play(audioBuffer, alarmSound, volume, false);
     });
   }
 
-  function playAlarmSound() {
+  function playAlarmSound(volume) {
     const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      alarmSound = play(audioBuffer, alarmSound, true);
+      alarmSound = play(audioBuffer, alarmSound, volume, true);
     });
   }
 
   function stopAlarmSound() {
-    alarmSound.stop(0);
+    if (typeof alarmSound !== 'undefined') {
+      alarmSound.stop(0);
+    }
   }
 
-  function playBicycleSound() {
+  function stopAllSounds() {
+    console.log('soundsArray.length in stopAlarmSound() = ' + soundsArray.length);
+    for (let i = 0; i < soundsArray.length; i++) {
+      if (soundsArray[i])
+      soundsArray[i].stop(0);
+    }
+    soundsArray.length = 0;
+  }
+
+  function playBicycleSound(volume) {
     const songDataPromise = fetchSong("sounds/bicycle.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      bicycleSound = play(audioBuffer, alarmSound, false);
+      bicycleSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(bicycleSound);
     });
   }
 
-  function playCarAccidentSound() {
+  function playCarAccidentSound(volume) {
     const songDataPromise = fetchSong("sounds/car_accident.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      carAccidentSound = play(audioBuffer, alarmSound, false);
+      carAccidentSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(carAccidentSound);
     });
   }
 
-  function playCarMovingSound() {
+  function playCarMovingSound(volume) {
     const songDataPromise = fetchSong("sounds/car_moving.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      carMovingSound = play(audioBuffer, alarmSound, false);
+      carMovingSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(carMovingSound);
     });
   }
 
-  function playStepsSound() {
+  function playStepsSound(volume) {
     const songDataPromise = fetchSong("sounds/steps.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      stepsSound = play(audioBuffer, alarmSound, false);
+      stepsSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(stepsSound);
     });
   }
 
-  function playTramSound() {
+  function playTramSound(volume) {
     const songDataPromise = fetchSong("sounds/tram_sound.mp3");   // Promise {<pending>}
     songDataPromise.then((audioBuffer) => {
-      tramSound = play(audioBuffer, alarmSound, false);
+      tramSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(tramSound);
     });
   }
 
