@@ -1,68 +1,259 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>CrossRoadPDD</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-    <!-- библиотека VK -->
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-    <script>vkBridge.send("VKWebAppInit", {});</script>
-
-    <script>
-       function showYndxAd() {
-              //console.log("start showYndxAd function, version = 1");
-              //sdk.adv.showFullscreenAdv({callbacks:{}});
-       }
-</script>
-
-    <script>
-       function getYndxPayload() {
-              // <!-- console.log("start getYndxPayload"); -->
-              // <!-- if (typeof(sdk)=="undefined") -->
-              //        <!-- return "undefined"; -->
-              // <!-- else return ""+sdk.environment.payload; -->
-       }
-
-       function setYndxPayloadEmpty() {
-              // <!-- sdk.environment.payload = "undefined"; -->
-       }
-</script>
-
-    <script>
-        function appLaunchFromVK() {
-        return true;
+  <title>CrossRoadPDD</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Yandex Games SDK -->
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <script>
+    YaGames
+      .init({
+        screen: {
+          fullscreen: false,
+          orientation: {
+            value: 'portrait',
+          }
+        },
+        adv: {
+          onAdvClose: wasShown => {
+            console.info('adv closed!');
+          }
         }
-    </script>
+      })
+      .then(ysdk => {
+        sdk = ysdk;
+        ysdk.adv.showFullscreenAdv();
+      });
+  </script>
 
-    <script>
-      function buildSettingsDialogVK() {
+  <script>
+    function showYndxAd() {
+      console.log("start showYndxAd function, version = 2");
+      sdk.adv.showFullscreenAdv({ callbacks: {} });
+    }
+  </script>
 
-      }
-    </script>
+  <script>
+    function getYndxPayload() {
+      console.log("start getYndxPayload");
+      if (typeof (sdk) == "undefined")
+        return "undefined";
+      else return "" + sdk.environment.payload;
+    }
+
+    function setYndxPayloadEmpty() {
+      sdk.environment.payload = "undefined";
+    }
+
+  </script>
+
+  <script>
+    function showStickyBannerYndx() {
+      sdk.adv.getBannerAdvStatus().then(({ stickyAdvIsShowing, reason }) => {
+        if (stickyAdvIsShowing) {
+          console.log("sticky yndxBanner is showing");
+        } else if (reason) {
+          console.log("sticky yndxBanner isn't showing")
+          console.log(reason);
+        } else {
+          console.log("show sticky yndxBanner")
+          sdk.adv.showBannerAdv();
+        }
+      })
+    }
+  </script>
+
+  <script>
+    function hideStickyBannerYndx() {
+      console.log("hideStickyBannerYndx() in hide");
+      sdk.adv.hideBannerAdv();
+    }
+  </script>
+
+  <script>
+    function appLaunchFromVK() {
+      return false;
+    }
+  </script>
+
+  <script>
+    function showHtmlRewardedVideoAd() {
+      sdk.adv.showRewardedVideo({
+        callbacks: {
+          onOpen: () => {
+            console.log('Video ad open.');
+          },
+          onRewarded: () => {
+            console.log('Rewarded!');
+            window.setOnRewarded(); // оповестить  HtmlLauncher о получении пользователем вознаграждения
+          },
+          onClose: () => {
+            console.log('Video ad closed.');
+          },
+          onError: (e) => {
+            console.log('Error while open video ad:', e);
+            window.setRewardedOnError(); // оповестить об ошибке в загрузке объявления
+          }
+        }
+      })
+    }
+  </script>
 </head>
 
 <body>
-<div align="center" id="embed-html"></div>
-<script type="text/javascript" src="html/html.nocache.js"></script>
+  <div align="center" id="embed-html"></div>
+  <script type="text/javascript" src="html/html.nocache.js"></script>
 </body>
 
 <script>
-              function handleMouseDown(evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-                window.focus();
-              }
+  function handleMouseDown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    window.focus();
+  }
 
-              function handleMouseUp(evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-              }
-              document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
-              document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
-       </script>
+  function handleMouseUp(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+  document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
+  document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
+</script>
+
+<script>
+
+  let alarmSound;
+  let bicycleSound;
+  let carAccidentSound;
+  let carMovingSound;
+  let clickSound;
+  let stepsSound;
+  let tramSound;
+
+  var soundsArray = [];
+
+  const audioCtx = new AudioContext();
+  const gainNode = audioCtx.createGain();
+  unlockAudioContext(audioCtx);
+
+  // аудиоконтекст разблокируется после первого жеста пользователя (обязательно)
+  function unlockAudioContext(audioCtx) {
+    if (audioCtx.state !== 'suspended') return;
+    const b = document.body;
+    const events = ['touchstart', 'touchend', 'mousedown', 'keydown'];
+    events.forEach(e => b.addEventListener(e, unlock, false));
+    function unlock() { audioCtx.resume().then(clean); }
+    function clean() { events.forEach(e => b.removeEventListener(e, unlock)); }
+  }
+
+  // функция, декодирующая звук асинхронно
+  const fetchSong = async (path) => {
+    const xhr = await fetch(path);
+    const arrayBuffer = await xhr.arrayBuffer();
+    return audioCtx.decodeAudioData(arrayBuffer);
+  };
+
+  function play(audioBuffer, source, volume, loop) {
+    source = audioCtx.createBufferSource();
+    
+    source.buffer = audioBuffer;
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    gainNode.gain.setValueAtTime(volume, 0);
+    source.loop = loop;
+    source.start(audioCtx.currentTime);
+    return source;
+  }
+
+  function pauseWebAudio() {
+    audioCtx.suspend();
+  }
+
+  function resumeWebAudio() {
+    if (audioCtx.state === 'suspended') {
+      console.log('audioCtx in resumeWebAudio if suspended = ' + audioCtx);
+      console.log('audioCtx.state in resumeWebAudio if suspended = ' + audioCtx.state);
+      audioCtx.resume();
+    }
+  }
+
+  function setVolume(volume) {
+    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+  }
+
+  function playClickSound(volume) {
+    const songDataPromise = fetchSong("sounds/click.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      clickSound = play(audioBuffer, alarmSound, volume, false);
+    });
+  }
+
+  function playAlarmSound(volume) {
+    const songDataPromise = fetchSong("sounds/alarm.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      alarmSound = play(audioBuffer, alarmSound, volume, true);
+    });
+  }
+
+  function stopAlarmSound() {
+    if (typeof alarmSound !== 'undefined') {
+      alarmSound.stop(0);
+    }
+  }
+
+  function stopAllSounds() {
+    console.log('soundsArray.length in stopAlarmSound() = ' + soundsArray.length);
+    for (let i = 0; i < soundsArray.length; i++) {
+      if (soundsArray[i])
+      soundsArray[i].stop(0);
+    }
+    soundsArray.length = 0;
+  }
+
+  function playBicycleSound(volume) {
+    const songDataPromise = fetchSong("sounds/bicycle.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      bicycleSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(bicycleSound);
+    });
+  }
+
+  function playCarAccidentSound(volume) {
+    const songDataPromise = fetchSong("sounds/car_accident.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      carAccidentSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(carAccidentSound);
+    });
+  }
+
+  function playCarMovingSound(volume) {
+    const songDataPromise = fetchSong("sounds/car_moving.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      carMovingSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(carMovingSound);
+    });
+  }
+
+  function playStepsSound(volume) {
+    const songDataPromise = fetchSong("sounds/steps.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      stepsSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(stepsSound);
+    });
+  }
+
+  function playTramSound(volume) {
+    const songDataPromise = fetchSong("sounds/tram_sound.mp3");   // Promise {<pending>}
+    songDataPromise.then((audioBuffer) => {
+      tramSound = play(audioBuffer, alarmSound, volume, false);
+      soundsArray.push(tramSound);
+    });
+  }
+
+</script>
+
 </html>
