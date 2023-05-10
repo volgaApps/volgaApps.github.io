@@ -1,0 +1,125 @@
+
+crossroad-ui.pack.png
+size: 512, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+blue_rect
+  rotate: false
+  xy: 2, 2
+  size: 6, 6
+  split: 1, 1, 1, 1
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+blue_rect_up
+  rotate: false
+  xy: 2, 66
+  size: 54, 54
+  split: 4, 7, 4, 7
+  pad: 7, 7, 7, 7
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+dark_gray_rect
+  rotate: false
+  xy: 454, 442
+  size: 10, 10
+  split: 2, 2, 2, 2
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+dark_green_rect_down
+  rotate: false
+  xy: 260, 320
+  size: 54, 54
+  split: 8, 4, 7, 4
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+dark_green_rect_up
+  rotate: false
+  xy: 454, 454
+  size: 54, 54
+  split: 7, 10, 8, 9
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+dark_white_rect_up
+  rotate: false
+  xy: 2, 10
+  size: 54, 54
+  split: 6, 7, 8, 7
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+light_gray_rect
+  rotate: false
+  xy: 58, 54
+  size: 10, 10
+  split: 1, 1, 1, 1
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+light_yellow_rect_checked
+  rotate: false
+  xy: 58, 66
+  size: 54, 54
+  split: 8, 3, 7, 3
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+light_yellow_rect_down
+  rotate: false
+  xy: 260, 264
+  size: 54, 54
+  split: 8, 4, 8, 4
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+light_yellow_rect_up
+  rotate: false
+  xy: 316, 320
+  size: 54, 54
+  split: 8, 8, 7, 7
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+practice_img
+  rotate: false
+  xy: 260, 376
+  size: 192, 132
+  orig: 192, 132
+  offset: 0, 0
+  index: -1
+pt_mono
+  rotate: false
+  xy: 2, 252
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+pt_mono_16s
+  rotate: false
+  xy: 2, 122
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+very_light_yellow_rect
+  rotate: false
+  xy: 114, 114
+  size: 6, 6
+  split: 2, 1, 1, 1
+  pad: 1, 1, 1, 1
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+yellow_gray_rect
+  rotate: false
+  xy: 260, 256
+  size: 6, 6
+  split: 1, 1, 1, 1
+  orig: 6, 6
+  offset: 0, 0
+  index: -1

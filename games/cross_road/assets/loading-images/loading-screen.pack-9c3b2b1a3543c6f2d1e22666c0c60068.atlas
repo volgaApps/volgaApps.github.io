@@ -1,0 +1,36 @@
+
+loading-screen.pack.png
+size: 512, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+car
+  rotate: false
+  xy: 157, 6
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+car_side_view
+  rotate: false
+  xy: 209, 6
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+red_rect
+  rotate: false
+  xy: 2, 30
+  size: 153, 26
+  split: 4, 5, 4, 4
+  orig: 153, 26
+  offset: 0, 0
+  index: -1
+white_rect
+  rotate: false
+  xy: 2, 2
+  size: 153, 26
+  split: 5, 6, 3, 4
+  orig: 153, 26
+  offset: 0, 0
+  index: -1
