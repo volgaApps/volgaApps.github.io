@@ -205,6 +205,11 @@
     if (audioCtx.state === 'suspended') {
       audioCtx.resume();
     }
+
+    if (audioCtx.state !== 'running') {
+      console.log('audioCtx.state in resumeWebAudio() !== running'= + audioCtx.state);
+      audioCtx.resume();
+    }
   }
 
   function setVolume(volume) {
