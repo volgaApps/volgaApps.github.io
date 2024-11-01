@@ -1,11 +1,3 @@
-yandex.com, 92175782, DIRECT
-improvedigital.com, 2031, RESELLER
-betweendigital.com, 43554, RESELLER
-uis.mobfox.com, 165, RESELLER
-Contextweb.com, 562899,RESELLER,89ff185a4c4e857c
-hyperad.tech, 150, RESELLER
-hyperad.tech, 215, RESELLER
-google.com, pub-5533854580432370, RESELLER, f08c47fec0942fa0
 adcolony.com, 1efc6603710003ea, RESELLER
 adcolony.com, 29b7f4a14dc689eb, RESELLER
 adelement.com, 30273, RESELLER
@@ -13,7 +5,6 @@ admanmedia.com, 1009, RESELLER
 admixer.com, 1058239, RESELLER
 admixer.net, 2878f07c-cc3f-4f8a-a26c-8e6033a539a6, RESELLER
 ads.vk.com, 1058239, DIRECT
-adspend.ru, 1058239, DIRECT
 adview.com, 53849096, RESELLER
 adwmg.com, 1058239, RESELLER
 algorix.co, 60322, RESELLER
@@ -26,8 +17,8 @@ betweendigital.com, 43651, RESELLER
 betweendigital.com, 43871, RESELLER
 betweendigital.com, 44088, RESELLER
 betweendigital.com, 44229, RESELLER
-bid-matrix.com, 1058239, DIRECT
 bidmachine.io, 138, RESELLER
+bigo.sg, 1058239, DIRECT
 brightcom.com, 29559, RESELLER
 chocolateplatform.com, 14630, RESELLER
 contextweb.com, 562499, RESELLER
@@ -47,6 +38,7 @@ indexexchange.com, 191332, RESELLER
 indexexchange.com, 192806, RESELLER
 inmobi.com, 22e5354e453f49348325184e25464adb, RESELLER
 inmobi.com, 86357825a302443d9a99c0b5dda0eafa, RESELLER
+lacunaads.com, 1058239, DIRECT
 lijit.com, 273644, RESELLER
 lkqd.net, 647, RESELLER
 lkqd.net, 654, RESELLER
@@ -58,6 +50,8 @@ lunamedia.io, bfacf5e017bb11edb41173b0ca2c748c, RESELLER
 marversal.com, 116, RESELLER
 mediasniper.ru, 1058239, DIRECT
 meitu.com, 654, RESELLER
+mintegral.com, 1058239, DIRECT
+mts.ru, 1058239, DIRECT
 myfeature.tv, sjP0aJHe3OFFP6HPUTTc, RESELLER
 omnifytv.com, Oj5TJGviERRBMxAq, RESELLER
 onetag.com, 59d216e971852f2, RESELLER
@@ -101,10 +95,11 @@ smartadserver.com, 4467, RESELLER
 smartyads.com, 100034, RESELLER
 soloway.ru, 1058239, DIRECT
 sovrn.com, 273644, RESELLER
-target.my.com, 1058239, DIRECT
+target.vk.ru, 1058239, DIRECT
 triplelift.com, 10522, RESELLER
 triplelift.com, 8446, RESELLER
 ucfunnel.com, par-D2346AAB7ABD36B4CDD7BBD264BA92E2, RESELLER
+upravel.com, 1058239, DIRECT
 ushareit.com, 1058239, DIRECT
 verve.com, 15290, RESELLER
 verve.com, 15503, RESELLER
@@ -112,3 +107,4 @@ video.unrulymedia.com, 3880497124, RESELLER
 vidoomy.com, 9148331, RESELLER
 xapads.com, 144307, RESELLER
 yeahmobi.com, 113772, RESELLER
+zmaticoo.com, 1058239, DIRECT
