@@ -1,4 +1,4 @@
-:root{
+:root {
   --bg:#0b0c0f;
   --fg:#e6e6e6;
   --muted:#9aa3b2;
@@ -7,9 +7,12 @@
   --accent:#60a5fa;
 }
 
-*{box-sizing:border-box}
+* {
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body {
   margin:0;
   padding:0;
   background:var(--bg);
@@ -18,39 +21,43 @@ html,body{
 }
 
 /* Ссылки по умолчанию */
-a{
+a {
   color:var(--accent);
   text-decoration:none;
 }
-a:hover{text-decoration:underline}
 
-.container{
+a:hover {
+  text-decoration:underline;
+}
+
+.container {
   max-width:960px;
   margin:0 auto;
   padding:20px;
 }
 
-.header{
+.header {
   display:flex;
   align-items:center;
   gap:12px;
 }
 
-.header img{
+.header img {
   width:36px;
   height:36px;
   opacity:.9;
 }
 
-.grid{
+/* Сетка главной страницы */
+.grid {
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
   gap:16px;
   margin-top:16px;
 }
 
-/* Карточка — линк, но цвет текста = обычный текст, а не цвет ссылки */
-.card{
+/* Карточка-линк: текст как обычный, а не цвет ссылки */
+.card {
   background:var(--card);
   border:1px solid var(--border);
   border-radius:16px;
@@ -58,16 +65,15 @@ a:hover{text-decoration:underline}
   display:flex;
   gap:12px;
   align-items:center;
-  color:var(--fg);              /* ключевой момент */
-}
-
-/* Убираем "синий линк" у самой карточки */
-.card:link,
-.card:visited{
   color:var(--fg);
 }
 
-.card img{
+.card:link,
+.card:visited {
+  color:var(--fg);
+}
+
+.card img {
   width:64px;
   height:64px;
   border-radius:12px;
@@ -75,19 +81,20 @@ a:hover{text-decoration:underline}
   background:#111;
 }
 
-.title{
+.title {
   font-weight:700;
   margin:0;
-  color:var(--fg);              /* чтобы заголовки всегда были контрастными */
+  color:var(--fg);
 }
 
-.subtitle{
+.subtitle {
   margin:0;
   color:var(--muted);
   font-size:.9rem;
 }
 
-.btn{
+/* Кнопки */
+.btn {
   display:inline-block;
   padding:10px 14px;
   border-radius:10px;
@@ -95,40 +102,50 @@ a:hover{text-decoration:underline}
   background:#111;
   color:#fff;
 }
-.btn:hover{background:#151922}
 
-.actions{
+.btn:hover {
+  background:#151922;
+}
+
+.actions {
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin:12px 0 0;
 }
 
-hr{
+hr {
   border:0;
   border-top:1px solid var(--border);
   margin:20px 0;
 }
 
-.footer{
+.footer {
   color:var(--muted);
   font-size:.9rem;
   margin-top:8px;
 }
 
-.back{margin:10px 0 0}
+.back {
+  margin:10px 0 0;
+}
 
-.policy{
+/* Блок политики / описаний */
+.policy {
   background:#0c0f14;
   border:1px solid var(--border);
   border-radius:16px;
   padding:16px;
   margin:16px 0;
+  color:var(--fg);
 }
 
-.policy h2{margin:8px 0}
+.policy h2 {
+  margin:8px 0;
+}
 
-.icon-top{
+/* Иконка игры сверху на страницах игр */
+.icon-top {
   width:96px;
   height:96px;
   border-radius:20px;
@@ -136,7 +153,8 @@ hr{
   background:#111;
 }
 
-.badge{
+/* Бэйджики */
+.badge {
   display:inline-block;
   padding:2px 8px;
   border:1px solid var(--border);
@@ -145,9 +163,13 @@ hr{
   font-size:.8rem;
 }
 
-ul.links{padding-left:18px}
+/* Список ссылок в политике */
+ul.links {
+  padding-left:18px;
+}
 
-code{
+/* Инлайн-код */
+code {
   background:#0f131a;
   border:1px solid var(--border);
   padding:2px 6px;
@@ -155,27 +177,38 @@ code{
 }
 
 /* Светлая тема */
-@media (prefers-color-scheme: light){
-  :root{
+@media (prefers-color-scheme: light) {
+  :root {
     --bg:#ffffff;
     --fg:#0b0c0f;
-    --muted:#4b5563;          /* чуть темнее для лучшего контраста */
+    --muted:#4b5563;   /* чуть темнее для контраста */
     --card:#f7f8fb;
     --border:#e5e7eb;
     --accent:#2563eb;
   }
 
   .card img,
-  .icon-top{
+  .icon-top {
     background:#ffffff;
   }
 
-  .btn{
+  .btn {
     background:#ffffff;
     color:#0b0c0f;
   }
 
-  .btn:hover{
+  .btn:hover {
     background:#f0f3f9;
+  }
+
+  /* Чтобы политика не была чёрным прямоугольником с тёмным текстом */
+  .policy {
+    background:var(--card); /* светлый фон в светлой теме */
+    color:var(--fg);        /* явный цвет текста */
+  }
+
+  code {
+    background:#f3f4f6;
+    border-color:#e5e7eb;
   }
 }
