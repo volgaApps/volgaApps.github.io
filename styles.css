@@ -1,32 +1,181 @@
+:root{
+  --bg:#0b0c0f;
+  --fg:#e6e6e6;
+  --muted:#9aa3b2;
+  --card:#0f1218;
+  --border:#1f2937;
+  --accent:#60a5fa;
+}
 
-:root{--bg:#0b0c0f;--fg:#e6e6e6;--muted:#9aa3b2;--card:#0f1218;--border:#1f2937;--accent:#60a5fa;}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif}
-a{color:var(--accent);text-decoration:none}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--fg);
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+}
+
+/* Ссылки по умолчанию */
+a{
+  color:var(--accent);
+  text-decoration:none;
+}
 a:hover{text-decoration:underline}
-.container{max-width:960px;margin:0 auto;padding:20px}
-.header{display:flex;align-items:center;gap:12px}
-.header img{width:36px;height:36px;opacity:.9}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:16px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center}
-.card img{width:64px;height:64px;border-radius:12px;border:1px solid var(--border);background:#111}
-.title{font-weight:700;margin:0}
-.subtitle{margin:0;color:var(--muted);font-size:.9rem}
-.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#111;color:#fff}
+
+.container{
+  max-width:960px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.header img{
+  width:36px;
+  height:36px;
+  opacity:.9;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:16px;
+  margin-top:16px;
+}
+
+/* Карточка — линк, но цвет текста = обычный текст, а не цвет ссылки */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  color:var(--fg);              /* ключевой момент */
+}
+
+/* Убираем "синий линк" у самой карточки */
+.card:link,
+.card:visited{
+  color:var(--fg);
+}
+
+.card img{
+  width:64px;
+  height:64px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#111;
+}
+
+.title{
+  font-weight:700;
+  margin:0;
+  color:var(--fg);              /* чтобы заголовки всегда были контрастными */
+}
+
+.subtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+.btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#111;
+  color:#fff;
+}
 .btn:hover{background:#151922}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0}
-hr{border:0;border-top:1px solid var(--border);margin:20px 0}
-.footer{color:var(--muted);font-size:.9rem;margin-top:8px}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:12px 0 0;
+}
+
+hr{
+  border:0;
+  border-top:1px solid var(--border);
+  margin:20px 0;
+}
+
+.footer{
+  color:var(--muted);
+  font-size:.9rem;
+  margin-top:8px;
+}
+
 .back{margin:10px 0 0}
-.policy{background:#0c0f14;border:1px solid var(--border);border-radius:16px;padding:16px;margin:16px 0}
+
+.policy{
+  background:#0c0f14;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  margin:16px 0;
+}
+
 .policy h2{margin:8px 0}
-.icon-top{width:96px;height:96px;border-radius:20px;border:1px solid var(--border);background:#111}
-.badge{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:.8rem}
+
+.icon-top{
+  width:96px;
+  height:96px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:#111;
+}
+
+.badge{
+  display:inline-block;
+  padding:2px 8px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  color:var(--muted);
+  font-size:.8rem;
+}
+
 ul.links{padding-left:18px}
-code{background:#0f131a;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+
+code{
+  background:#0f131a;
+  border:1px solid var(--border);
+  padding:2px 6px;
+  border-radius:6px;
+}
+
+/* Светлая тема */
 @media (prefers-color-scheme: light){
-  :root{--bg:#fff;--fg:#0b0c0f;--muted:#667085;--card:#f7f8fb;--border:#e5e7eb;--accent:#2563eb;}
-  .card img,.icon-top{background:#fff}
-  .btn{background:#fff;color:#0b0c0f}
-  .btn:hover{background:#f0f3f9}
+  :root{
+    --bg:#ffffff;
+    --fg:#0b0c0f;
+    --muted:#4b5563;          /* чуть темнее для лучшего контраста */
+    --card:#f7f8fb;
+    --border:#e5e7eb;
+    --accent:#2563eb;
+  }
+
+  .card img,
+  .icon-top{
+    background:#ffffff;
+  }
+
+  .btn{
+    background:#ffffff;
+    color:#0b0c0f;
+  }
+
+  .btn:hover{
+    background:#f0f3f9;
+  }
 }
